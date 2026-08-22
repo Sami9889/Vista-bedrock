@@ -19,7 +19,8 @@
       "type": "script",
       "uuid": "1a2b3c4d-1111-2222-3333-444455556668",
       "version": [1, 0, 0],
-      "entry": "scripts/main.js"
+      "entry": "scripts/main.js",
+      "language": "javascript"
     }
   ],
   "dependencies": [
@@ -29,11 +30,18 @@
     },
     {
       "module_name": "@minecraft/server",
-      "version": "1.10.0"
+      "version": "1.13.0"
     },
     {
       "module_name": "@minecraft/server-ui",
       "version": "1.2.0"
     }
-  ]
+  ],
+  "metadata": {
+    "authors": ["Vista"],
+    "product_type": "addon",
+    "generated_with": {
+      "vista": ["1.0.0"]
+    }
+  }
 }

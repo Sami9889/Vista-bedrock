@@ -1,26 +1,17 @@
 {
-  "format_version": "1.20.0",
+  "format_version": "1.26.40",
   "minecraft:block": {
     "description": {
       "identifier": "vista:tv_base",
-      "category": "interactive",
-      "properties": {
-        "minecraft:cardinal_direction": ["north", "south", "east", "west"]
-      }
+      "menu_category": { "category": "items" }
     },
     "components": {
-      "minecraft:geometry": "geometry.tv_base",
       "minecraft:collision_box": { "origin": [-8, 0, -8], "size": [16, 4, 12] },
       "minecraft:selection_box": { "origin": [-8, 0, -8], "size": [16, 4, 12] },
-      "minecraft:destructible_by_mining": { "value": 1.5 },
-      "minecraft:map_color": { "color": [0.15, 0.15, 0.18] },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 1.5 },
+      "minecraft:map_color": [38, 38, 46],
       "minecraft:material_instances": {
-        "up": { "texture": "tv_base", "render_method": "opaque" },
-        "down": { "texture": "tv_base", "render_method": "opaque" },
-        "north": { "texture": "tv_base", "render_method": "opaque" },
-        "south": { "texture": "tv_base", "render_method": "opaque" },
-        "east": { "texture": "tv_base", "render_method": "opaque" },
-        "west": { "texture": "tv_base", "render_method": "opaque" }
+        "*": { "texture": "tv_base", "render_method": "opaque" }
       }
     }
   }

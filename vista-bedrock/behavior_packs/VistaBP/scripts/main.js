@@ -1,11 +1,5 @@
-import { world, system, Player, Entity, Block, ItemStack } from "@minecraft/server";
+import { world, system, Player, Entity, Block } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
-
-// ─────────────────────────────────────────────
-// VISTA BEDROCK EDITION - Main Game Logic Script
-// Features: TVs, Cassettes, Viewfinders, Mirrors,
-//           Picture Tapes, Wave Gates
-// ─────────────────────────────────────────────
 
 const CHANNEL_MAP = {
   blue: "vista:cassette_blue", red: "vista:cassette_red",
@@ -18,22 +12,18 @@ const CHANNEL_MAP = {
   hollow: "vista:hollow_cassette"
 };
 
-// ── State Maps ──────────────────────────────────────────────────────────────
-const TV_STATE = new Map();       // "x,y,z" -> { channel, powered, animTick, playing }
-const VF_STATE = new Map();       // "x,y,z" -> { pitch, yaw, locked }
-const PT_STATE = new Map();       // "x,y,z" -> { pictures: string[] }
-const WAVE_URLS = new Map();      // "x,y,z" -> string url
-const PLAYER_VF = new Map();      // player.id -> "x,y,z"
-const VF_ANGLES = new Map();      // "playerId,x,y,z" -> { pitch, yaw }
-const VF_LOCKED = new Map();      // "playerId,x,y,z" -> boolean
-const BOUND_CASSETTES = new Map();// "x,y,z" (viewfinder) -> { cassette_id, channel }
-const CAMERA_ENTS = new Map();    // "x,y,z" -> entity
+const TV_STATE = new Map();
+const VF_STATE = new Map();
+const PT_STATE = new Map();
+const WAVE_URLS = new Map();
+const PLAYER_VF = new Map();
+const VF_ANGLES = new Map();
+const VF_LOCKED = new Map();
+const BOUND_CASSETTES = new Map();
+const CAMERA_ENTS = new Map();
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
 function tvKey(pos) { return `${pos.x},${pos.y},${pos.z}`; }
-function blockState(b, prop, val) {
-  try { b.setProperty(prop, val); } catch(e) {}
-}
+
 function getChannelColor(ch) {
   const colors = {
     blue:"§9",red:"§c",green:"§a",yellow:"§e",purple:"§d",
@@ -42,9 +32,11 @@ function getChannelColor(ch) {
   };
   return colors[ch] || "§7";
 }
+
 function isCassette(itemId) {
   return Object.values(CHANNEL_MAP).includes(itemId);
 }
+
 function getCassetteChannel(itemId) {
   for (const [ch, id] of Object.entries(CHANNEL_MAP)) {
     if (id === itemId) return ch;
@@ -52,9 +44,24 @@ function getCassetteChannel(itemId) {
   return null;
 }
 
-// ── TV Block Logic ───────────────────────────────────────────────────────────
+function setBlockState(block, state, value) {
+  try {
+    const newPerm = block.permutation.withState(state, value);
+    block.setPermutation(newPerm);
+  } catch (e) {}
+}
+
+function getBlockState(block, state) {
+  try {
+    return block.permutation.getState(state);
+  } catch (e) {
+    return undefined;
+  }
+}
+
 function handleTVInteraction(player, block) {
-  const held = player.getComponent("inventory").getItem(0);
+  const inv = player.getComponent("inventory");
+  const held = inv.getItem(player.selectedSlotIndex);
   const itemId = held?.typeId;
   const pos = block.location;
   const key = tvKey(pos);
@@ -74,45 +81,33 @@ function handleTVInteraction(player, block) {
       }
       state.channel = "hollow";
       state.playing = true;
-      blockState(block, "minecraft:channel", "hollow");
-      blockState(block, "minecraft:display_layer", "on");
+      setBlockState(block, "vista:on", true);
+      setBlockState(block, "vista:channel", "hollow");
+      spawnCameraEntity(block);
       player.sendMessage("§7Hollow cassette bound! Showing live viewfinder feed.");
-      player.runCommandAsync("playsound note.pling @s ~~~");
+      player.runCommand("playsound note.pling @s ~~~");
     } else {
       state.channel = ch;
       state.playing = true;
       state.animTick = 0;
-      blockState(block, "minecraft:channel", ch);
-      blockState(block, "minecraft:display_layer", "on");
+      setBlockState(block, "vista:on", true);
+      setBlockState(block, "vista:channel", ch);
       const colorName = ch.replace("_", " ");
       player.sendMessage(`§7Now playing: ${getChannelColor(ch)}${colorName} Cassette`);
-      player.runCommandAsync("playsound note.pling @s ~~~");
+      player.runCommand("playsound note.pling @s ~~~");
     }
-    player.runCommandAsync(`clear @s ${itemId} 0 1`);
+    player.runCommand(`clear @s ${itemId} 1`);
   } else if (itemId === "vista:picture_tape") {
     state.channel = "picture_tape";
     state.playing = true;
-    blockState(block, "minecraft:channel", "picture_tape");
-    blockState(block, "minecraft:display_layer", "on");
+    setBlockState(block, "vista:on", true);
+    setBlockState(block, "vista:channel", "picture_tape");
     PT_STATE.set(key, { pictures: [] });
     player.sendMessage("§6Picture Tape inserted! Right-click it to add map images.");
-    player.runCommandAsync("playsound note.pling @s ~~~");
-    player.runCommandAsync(`clear @s vista:picture_tape 0 1`);
+    player.runCommand("playsound note.pling @s ~~~");
+    player.runCommand(`clear @s vista:picture_tape 1`);
   } else {
     player.sendMessage("§7Insert a cassette, picture tape or hollow cassette.");
-  }
-}
-
-function startTVAnimation(player, block) {
-  const key = tvKey(block.location);
-  const state = TV_STATE.get(key);
-  if (!state || !state.playing || state.channel === "none") return;
-  const t = system.currentTick;
-  if (t % 4 === 0) {
-    state.animTick = (state.animTick + 1) % 40;
-    if (state.channel === "hollow") {
-      spawnCameraEntity(block);
-    }
   }
 }
 
@@ -120,35 +115,16 @@ function spawnCameraEntity(block) {
   const key = tvKey(block.location);
   let ent = CAMERA_ENTS.get(key);
   if (ent && ent.isValid) {
-    try { ent.teleport(block.location.above(6)); } catch(e) {}
+    try { ent.teleport({ x: ent.location.x, y: block.location.y + 6, z: ent.location.z }); } catch(e) {}
     return;
   }
   try {
-    ent = block.dimension.spawnEntity("vista:camera_entity", block.location.above(6));
-    ent.nameTag = "VistaCamera";
-    CAMERA_ENTS.set(key, ent);
-  } catch(e) {
-    try {
-      ent = world.getDimension("overworld").spawnEntity(
-        "vista:camera_entity", block.location.above(6));
+    ent = block.dimension.spawnEntity("vista:camera_entity", { x: block.location.x, y: block.location.y + 6, z: block.location.z });
+    if (ent) {
       ent.nameTag = "VistaCamera";
       CAMERA_ENTS.set(key, ent);
-    } catch(e2) {}
-  }
-}
-
-function onRedstoneChange(player, block) {
-  const key = tvKey(block.location);
-  const state = TV_STATE.get(key);
-  if (!state) return;
-  const powered = isGettingPower(block);
-  state.powered = powered;
-  if (powered) {
-    blockState(block, "minecraft:display_layer", state.channel === "none" ? "off" : "on");
-    if (state.playing) startTVAnimation(player, block);
-  } else {
-    blockState(block, "minecraft:display_layer", "off");
-  }
+    }
+  } catch(e) {}
 }
 
 function isGettingPower(block) {
@@ -162,13 +138,13 @@ function isGettingPower(block) {
       const nb = block.dimension.getBlock({
         x: block.x + d.x, y: block.y + d.y, z: block.z + d.z
       });
-      if (nb.getRedstonePower() > 0) return true;
+      const power = nb.getRedstonePower();
+      if (power && power > 0) return true;
     } catch(e) {}
   }
   return false;
 }
 
-// ── Viewfinder Logic ─────────────────────────────────────────────────────────
 function handleViewfinderInteraction(player, block) {
   const pos = block.location;
   const key = tvKey(pos);
@@ -217,28 +193,18 @@ function updateViewfinder(player) {
   const ent = CAMERA_ENTS.get(key);
   if (!ent || !ent.isValid) return;
   try {
-    ent.teleport({ x: ent.x, y: ent.y, z: ent.z });
-    const rot = player.getRotation();
-    const look = player.getHeadRotation();
     ent.setRotation({ x: -angles.pitch, y: angles.yaw });
   } catch(e) {}
 }
 
-// ── Mirror Logic ─────────────────────────────────────────────────────────────
 function handleMirrorPlaced(player, block) {
-  const dim = block.dimension;
-  const dir = block.getProperty("minecraft:cardinal_direction");
-  const facing = getFacingVector(dir);
   try {
     block.dimension.spawnEntity("minecraft:armor_stand", {
-      x: block.x + facing.x * 0.01,
-      y: block.y + 0.5,
-      z: block.z + facing.z * 0.01
+      x: block.x + 0.01, y: block.y + 0.5, z: block.z + 0.01
     }, { Invisible: true, Marker: true, NoGravity: true });
   } catch(e) {}
 }
 
-// ── Picture Tape Logic ────────────────────────────────────────────────────────
 function handlePictureTapeInsert(player, block) {
   const pos = block.location;
   const key = tvKey(pos);
@@ -252,7 +218,7 @@ function handlePictureTapeInsert(player, block) {
       inv.setItem(mapSlot, { typeId: "minecraft:air", amount: 0 });
       PT_STATE.set(key, pt);
       player.sendMessage(`§6Picture added! (${pt.pictures.length} pictures)`);
-      player.runCommandAsync("playsound note.pling @s ~~~ 1 1.5");
+      player.runCommand("playsound note.pling @s ~~~ 1 1.5");
     }
   }
 }
@@ -265,7 +231,6 @@ function findMap(inv) {
   return -1;
 }
 
-// ── Wave Gate Logic ──────────────────────────────────────────────────────────
 function openWaveGateForm(player, block) {
   const pos = block.location;
   const key = tvKey(pos);
@@ -279,7 +244,7 @@ function openWaveGateForm(player, block) {
     if (url && url.startsWith("http")) {
       WAVE_URLS.set(key, url);
       player.sendMessage(`§aWave Gate URL set: §f${url.substring(0, 50)}`);
-      player.runCommandAsync("playsound note.pling @s ~~~");
+      player.runCommand("playsound note.pling @s ~~~");
       spawnWaveGateDisplay(player, block, url);
     } else if (url) {
       WAVE_URLS.set(key, url);
@@ -303,7 +268,6 @@ function spawnWaveGateDisplay(player, block, url) {
   } catch(e) {}
 }
 
-// ── Block Break Cleanup ──────────────────────────────────────────────────────
 function onTVBreak(block) {
   const key = tvKey(block.location);
   TV_STATE.delete(key);
@@ -326,90 +290,17 @@ function onVfBreak(block) {
   }
 }
 
-// ── Tick Loop ────────────────────────────────────────────────────────────────
-let tickCounter = 0;
 function mainTick() {
-  tickCounter++;
-  if (tickCounter % 4 === 0) {
-    world.getPlayers().forEach(player => {
-      updateViewfinder(player);
-    });
-  }
-  if (tickCounter % 80 === 0) {
-    refreshWaveGates();
-    refreshTVDisplays();
-    refreshBoundHollowTapes();
-  }
+  world.getPlayers().forEach(player => {
+    updateViewfinder(player);
+  });
   system.run(mainTick);
 }
 
-function refreshTVDisplays() {
-  TV_STATE.forEach((state, key) => {
-    const [x, y, z] = key.split(",").map(Number);
-    try {
-      const b = world.getDimension("overworld").getBlock({ x, y, z });
-      if (b && b.isValid && b.id === "vista:tv") {
-        if (state.playing && isGettingPower(b)) {
-          blockState(b, "minecraft:display_layer", state.channel === "none" ? "off" : "on");
-        }
-      }
-    } catch(e) {}
-  });
-}
-
-function refreshWaveGates() {
-  WAVE_URLS.forEach((url, key) => {
-    const [x, y, z] = key.split(",").map(Number);
-    try {
-      const b = world.getDimension("overworld").getBlock({ x, y, z });
-      if (b && b.isValid && b.id === "vista:wave_gate" && isGettingPower(b)) {
-        const ents = world.getDimension("overworld").getEntitiesFromName("WaveGateDisplay");
-        ents.forEach(e => {
-          if (e.nameTag && e.nameTag.includes(url.substring(0, 20))) {
-            e.teleport({ x: x + 0.5, y: y + 1.5, z: z + 0.5 });
-          }
-        });
-      }
-    } catch(e) {}
-  });
-}
-
-function refreshBoundHollowTapes() {
-  BOUND_CASSETTES.forEach((data, key) => {
-    const [x, y, z] = key.split(",").map(Number);
-    try {
-      const b = world.getDimension("overworld").getBlock({ x, y, z });
-      if (b && b.isValid && b.id === "vista:tv") {
-        const tvState = TV_STATE.get(key);
-        if (tvState && tvState.channel === "hollow") {
-          const vfPos = data.cassette_id;
-          const [vx, vy, vz] = vfPos.split(",").map(Number);
-          const vf = world.getDimension("overworld").getBlock({ x: vx, y: vy, z: vz });
-          if (vf && vf.isValid && vf.id === "vista:viewfinder") {
-            spawnCameraEntity(b);
-          }
-        }
-      }
-    } catch(e) {}
-  });
-}
-
-// ── Get facing vector from cardinal direction ────────────────────────────────
-function getFacingVector(dir) {
-  switch(dir) {
-    case "north": return { x: 0, z: -1 };
-    case "south": return { x: 0, z: 1 };
-    case "east":  return { x: 1, z: 0 };
-    case "west":  return { x: -1, z: 0 };
-    default:      return { x: 0, z: 1 };
-  }
-}
-
-// ── Event Listeners ──────────────────────────────────────────────────────────
 world.afterEvents.playerInteractWithBlock.subscribe(e => {
   const { block, player, itemStack } = e;
   if (!block || !player) return;
-  const bId = block.id;
+  const bId = block.typeId;
   if (bId === "vista:tv") {
     handleTVInteraction(player, block);
   } else if (bId === "vista:viewfinder") {
@@ -419,34 +310,19 @@ world.afterEvents.playerInteractWithBlock.subscribe(e => {
   }
 });
 
-world.afterEvents.playerInteractWithBlock.subscribe(e => {
-  const { block, itemStack } = e;
-  if (!block) return;
-  if (block.id === "vista:tv" && itemStack?.typeId === "vista:picture_tape") {
-    handlePictureTapeInsert(e.player, block);
-  }
-});
-
-world.afterEvents.redstoneUpdate.subscribe(e => {
-  const { block } = e;
-  if (!block) return;
-  if (block.id === "vista:tv") {
-    onRedstoneChange(e.player, block);
-  }
-});
-
 world.afterEvents.playerBreakBlock.subscribe(e => {
-  const { block, player } = e;
+  const { block, brokenBlockPermutation } = e;
   if (!block) return;
-  if (block.id === "vista:tv") onTVBreak(block);
-  else if (block.id === "vista:viewfinder") onVfBreak(block);
+  const typeId = brokenBlockPermutation?.typeId ?? block.typeId;
+  if (typeId === "vista:tv") onTVBreak(block);
+  else if (typeId === "vista:viewfinder") onVfBreak(block);
 });
 
 world.afterEvents.playerPlaceBlock.subscribe(e => {
-  const { block, player } = e;
+  const { block } = e;
   if (!block) return;
-  if (block.id === "vista:mirror") {
-    handleMirrorPlaced(player, block);
+  if (block.typeId === "vista:mirror") {
+    handleMirrorPlaced(e.player, block);
   }
 });
 
@@ -464,18 +340,18 @@ world.afterEvents.playerLeave.subscribe(e => {
 world.afterEvents.entityHurt.subscribe(e => {
   const { hurtEntity, damagingEntity } = e;
   if (!hurtEntity || !damagingEntity) return;
-  const ht = hurtEntity.typeId;
-  if (ht === "minecraft:enderman") {
+  if (hurtEntity.typeId === "minecraft:enderman") {
     const dim = hurtEntity.dimension;
-    const dimId = dim.id;
+    const loc = hurtEntity.location;
     const tvNearby = world.getPlayers().some(p => {
-      const la = p.location;
-      return dim.getBlock({ x: Math.floor(la.x), y: Math.floor(la.y), z: Math.floor(la.z) })?.id === "vista:tv";
+      const pl = p.location;
+      const b = dim.getBlock({ x: Math.floor(pl.x), y: Math.floor(pl.y), z: Math.floor(pl.z) });
+      return b && b.typeId === "vista:tv";
     });
     if (tvNearby) {
       try {
-        damagingEntity.runCommandAsync("tag @s add vista_sojourn_drop");
-      } catch(e) {}
+        damagingEntity.addTag("vista_sojourn_drop");
+      } catch(err) {}
     }
   }
 });
@@ -483,19 +359,22 @@ world.afterEvents.entityHurt.subscribe(e => {
 world.afterEvents.entityDie.subscribe(e => {
   const { deadEntity } = e;
   if (!deadEntity) return;
-  const hasTag = (deadEntity.getTags() || []).includes("vista_sojourn_drop");
+  const hasTag = deadEntity.getTags().includes("vista_sojourn_drop");
   if (deadEntity.typeId === "minecraft:enderman" && hasTag) {
     try {
-      deadEntity.runCommandAsync(
-        "summon item ~~~ {Item:{id:minecraft:music_disc_5,Count:1b}}");
-    } catch(e) {}
+      deadEntity.dimension.spawnEntity("minecraft:item", deadEntity.location, {
+        "minecraft:item": {
+          "item": "minecraft:music_disc_5",
+          "quantity": 1
+        }
+      });
+    } catch(err) {}
   }
 });
 
-// ── Advancement hook ─────────────────────────────────────────────────────────
 world.afterEvents.playerPlaceBlock.subscribe(e => {
   const { block, player } = e;
-  if (!block || block.id !== "vista:tv") return;
+  if (!block || block.typeId !== "vista:tv") return;
   const key = tvKey(block.location);
   const neighbors = [
     { x: 1, z: 0 }, { x: -1, z: 0 }, { x: 0, z: 1 }, { x: 0, z: -1 }
@@ -512,7 +391,7 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
       visited.add(nk);
       try {
         const nb = block.dimension.getBlock({ x: nx, y: block.y, z: nz });
-        if (nb && nb.isValid && nb.id === "vista:tv") {
+        if (nb && nb.typeId === "vista:tv") {
           totalSize++;
           queue.push({ x: nx, z: nz });
         }
@@ -521,11 +400,10 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
   }
   if (totalSize >= 8) {
     try {
-      player.runCommandAsync("advancement grant @s only vista:absolute_cinema");
+      player.runCommand("advancement grant @s only vista:absolute_cinema");
     } catch(e) {}
   }
 });
 
-// ── Init ─────────────────────────────────────────────────────────────────────
 world.sendMessage("§3§lVista §7loaded! §eWorking Screens §7for Minecraft Bedrock Edition.");
 system.run(mainTick);

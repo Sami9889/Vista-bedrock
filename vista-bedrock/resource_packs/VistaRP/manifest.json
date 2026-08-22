@@ -15,7 +15,12 @@
       "version": [1, 0, 0]
     }
   ],
-  "subpacks": [],
-  "capabilities": [],
-  "dependencies": []
+  "dependencies": [],
+  "metadata": {
+    "authors": ["Vista"],
+    "product_type": "addon",
+    "generated_with": {
+      "vista": ["1.0.0"]
+    }
+  }
 }

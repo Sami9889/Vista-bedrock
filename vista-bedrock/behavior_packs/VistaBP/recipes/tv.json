@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.0",
+  "format_version": "1.26.40",
   "minecraft:recipe_shaped": {
     "description": {
       "identifier": "vista:craft_tv",
@@ -9,7 +9,7 @@
     "pattern": ["igi", "gpg", "iri"],
     "key": {
       "i": { "item": "minecraft:iron_ingot" },
-      "g": { "item": "minecraft:stained_glass_pane", "data": 7 },
+      "g": { "item": "minecraft:black_stained_glass_pane" },
       "p": { "item": "minecraft:glass_pane" },
       "r": { "item": "minecraft:redstone" }
     },

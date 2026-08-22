@@ -1,0 +1,13 @@
+{
+  "resource_pack_name": "VistaRP",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "tv": { "textures": "textures/blocks/tv" },
+    "tv_off": { "textures": "textures/blocks/tv_off" },
+    "tv_base": { "textures": "textures/blocks/tv_base" },
+    "viewfinder": { "textures": "textures/blocks/viewfinder" },
+    "mirror": { "textures": "textures/blocks/mirror" },
+    "wave_gate": { "textures": "textures/blocks/wave_gate" },
+    "crystalline": { "textures": "textures/blocks/crystalline" }
+  }
+}

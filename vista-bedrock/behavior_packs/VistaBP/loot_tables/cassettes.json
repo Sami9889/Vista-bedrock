@@ -1,25 +1,18 @@
 {
-  "format_version": "1.20.0",
-  "minecraft:loot_table": {
-    "description": {
-      "identifier": "vista:loot/cassettes",
-      "type": "chest"
-    },
-    "pools": [
-      {
-        "rolls": { "min": 1, "max": 2 },
-        "entries": [
-          { "type": "item", "name": "vista:cassette_blue", "weight": 100 },
-          { "type": "item", "name": "vista:cassette_red", "weight": 80 },
-          { "type": "item", "name": "vista:cassette_green", "weight": 80 },
-          { "type": "item", "name": "vista:cassette_yellow", "weight": 80 },
-          { "type": "item", "name": "vista:cassette_purple", "weight": 60 },
-          { "type": "item", "name": "vista:cassette_orange", "weight": 60 },
-          { "type": "item", "name": "vista:cassette_cyan", "weight": 50 },
-          { "type": "item", "name": "vista:cassette_pink", "weight": 50 },
-          { "type": "item", "name": "vista:hollow_cassette", "weight": 20 }
-        ]
-      }
-    ]
-  }
+  "pools": [
+    {
+      "rolls": { "min": 1, "max": 2 },
+      "entries": [
+        { "type": "item", "name": "vista:cassette_blue", "weight": 100 },
+        { "type": "item", "name": "vista:cassette_red", "weight": 80 },
+        { "type": "item", "name": "vista:cassette_green", "weight": 80 },
+        { "type": "item", "name": "vista:cassette_yellow", "weight": 80 },
+        { "type": "item", "name": "vista:cassette_purple", "weight": 60 },
+        { "type": "item", "name": "vista:cassette_orange", "weight": 60 },
+        { "type": "item", "name": "vista:cassette_cyan", "weight": 50 },
+        { "type": "item", "name": "vista:cassette_pink", "weight": 50 },
+        { "type": "item", "name": "vista:hollow_cassette", "weight": 20 }
+      ]
+    }
+  ]
 }
