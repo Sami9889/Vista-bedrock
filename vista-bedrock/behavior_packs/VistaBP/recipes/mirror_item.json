@@ -1,0 +1,17 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "vista:craft_mirror_item",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "ingredients": [
+      { "item": "vista:mirror", "data": 0, "count": 1 }
+    ],
+    "result": {
+      "item": "vista:mirror",
+      "count": 1
+    }
+  }
+}

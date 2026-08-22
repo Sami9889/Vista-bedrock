@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "vista:craft_crystalline",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["p p", "g g", "p p"],
+    "key": {
+      "p": { "item": "minecraft:prismarine" },
+      "g": { "item": "minecraft:glowstone" }
+    },
+    "result": { "item": "vista:crystalline", "count": 1 }
+  }
+}

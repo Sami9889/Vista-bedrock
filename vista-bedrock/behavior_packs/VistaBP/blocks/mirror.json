@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "vista:mirror",
+      "category": "interactive",
+      "properties": {
+        "minecraft:cardinal_direction": ["north", "south", "east", "west"]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.mirror",
+      "minecraft:collision_box": { "origin": [-8, 0, -1], "size": [16, 16, 1] },
+      "minecraft:selection_box": { "origin": [-8, 0, -1], "size": [16, 16, 1] },
+      "minecraft:destructible_by_mining": { "value": 0.8 },
+      "minecraft:map_color": { "color": [0.8, 0.85, 1.0] },
+      "minecraft:on_player_placing": { "event": "vista:mirror_placed" },
+      "minecraft:material_instances": {
+        "up": { "texture": "mirror", "render_method": "alpha_test", "ambient_occlusion": false },
+        "down": { "texture": "mirror", "render_method": "alpha_test" },
+        "north": { "texture": "mirror", "render_method": "alpha_test", "face_uv": [0, 0, 16, 16] },
+        "south": { "texture": "mirror", "render_method": "alpha_test" },
+        "east": { "texture": "mirror", "render_method": "alpha_test" },
+        "west": { "texture": "mirror", "render_method": "alpha_test" }
+      }
+    },
+    "events": {
+      "vista:mirror_placed": {
+        "run_command": { "command": ["tag @s add vista_mirror"] }
+      }
+    }
+  }
+}

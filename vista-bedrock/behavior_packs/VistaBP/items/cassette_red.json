@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "vista:cassette_red",
+      "category": "Items",
+      "display_name": "Red Cassette"
+    },
+    "components": {
+      "minecraft:icon": { "texture": "cassette_red" },
+      "minecraft:display_name": { "value": "§cRed Cassette" },
+      "minecraft:use_duration": 0,
+      "minecraft:stacked_by_data": false,
+      "minecraft:hand_equipped": true,
+      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+    }
+  }
+}

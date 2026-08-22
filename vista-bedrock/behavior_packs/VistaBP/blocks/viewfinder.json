@@ -1,0 +1,44 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "vista:viewfinder",
+      "category": "interactive",
+      "properties": {
+        "minecraft:cardinal_direction": ["north", "south", "east", "west"]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.viewfinder",
+      "minecraft:collision_box": { "origin": [-6, 0, -6], "size": [12, 8, 4] },
+      "minecraft:selection_box": { "origin": [-6, 0, -6], "size": [12, 8, 4] },
+      "minecraft:destructible_by_mining": { "value": 2 },
+      "minecraft:flammable": { "catch_chance_modifier": 5, "destroy_chance_modifier": 20 },
+      "minecraft:map_color": { "color": [0.15, 0.15, 0.18] },
+      "minecraft:on_player_placing": { "event": "vista:viewfinder_placed" },
+      "minecraft:on_player_destroyed": { "event": "vista:viewfinder_destroyed" },
+      "minecraft:on_interact": { "event": "vista:viewfinder_interact" },
+      "minecraft:material_instances": {
+        "up": { "texture": "viewfinder", "render_method": "opaque" },
+        "down": { "texture": "viewfinder", "render_method": "opaque" },
+        "north": { "texture": "viewfinder", "render_method": "opaque" },
+        "south": { "texture": "viewfinder", "render_method": "opaque" },
+        "east": { "texture": "viewfinder", "render_method": "opaque" },
+        "west": { "texture": "viewfinder", "render_method": "opaque" }
+      }
+    },
+    "events": {
+      "vista:viewfinder_placed": {
+        "run_command": { "command": ["tag @s add vista_viewfinder", "data modify entity @s vista_lens set value \"none\""] }
+      },
+      "vista:viewfinder_destroyed": {
+        "run_command": { "command": ["tag @s remove vista_viewfinder"] }
+      },
+      "vista:viewfinder_interact": {
+        "sequence": [
+          { "run_command": { "command": ["vista viewfinder_open @s"] }}
+        ]
+      }
+    }
+  }
+}

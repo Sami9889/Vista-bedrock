@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:adventure": {
+    "absolute_cinema": {
+      "criteria": {
+        "placed_big_tv": {
+          "trigger": "minecraft:placed_block",
+          "conditions": {
+            "block": "vista:tv"
+          }
+        }
+      },
+      "rewards": {
+        "function": "vista:on_absolute_cinema"
+      }
+    }
+  }
+}

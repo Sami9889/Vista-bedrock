@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "vista:craft_viewfinder",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["ggg", "iCi", " r "],
+    "key": {
+      "g": { "item": "minecraft:glass" },
+      "i": { "item": "minecraft:iron_ingot" },
+      "C": { "item": "minecraft:compass" },
+      "r": { "item": "minecraft:redstone" }
+    },
+    "result": { "item": "vista:viewfinder", "count": 1 }
+  }
+}

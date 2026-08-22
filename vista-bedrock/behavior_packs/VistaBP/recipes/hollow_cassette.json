@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "vista:craft_hollow_cassette",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["g g", "gcg", "ggg"],
+    "key": {
+      "g": { "item": "minecraft:glass_pane" },
+      "c": { "item": "vista:cassette_blue" }
+    },
+    "result": { "item": "vista:hollow_cassette", "count": 1 }
+  }
+}

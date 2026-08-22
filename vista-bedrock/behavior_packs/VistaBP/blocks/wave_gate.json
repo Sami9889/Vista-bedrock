@@ -1,0 +1,45 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "vista:wave_gate",
+      "category": "interactive",
+      "properties": {
+        "minecraft:cardinal_direction": ["north", "south", "east", "west"]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.wave_gate",
+      "minecraft:collision_box": { "origin": [-8, 0, -8], "size": [16, 10, 16] },
+      "minecraft:selection_box": { "origin": [-8, 0, -8], "size": [16, 10, 16] },
+      "minecraft:destructible_by_mining": { "value": 1.5 },
+      "minecraft:flammable": { "catch_chance_modifier": 5, "destroy_chance_modifier": 20 },
+      "minecraft:map_color": { "color": [0.4, 0.1, 0.1] },
+      "minecraft:on_player_placing": { "event": "vista:wave_gate_placed" },
+      "minecraft:on_player_destroyed": { "event": "vista:wave_gate_destroyed" },
+      "minecraft:on_interact": { "event": "vista:wave_gate_interact" },
+      "minecraft:material_instances": {
+        "up": { "texture": "wave_gate", "render_method": "opaque" },
+        "down": { "texture": "wave_gate", "render_method": "opaque" },
+        "north": { "texture": "wave_gate", "render_method": "opaque" },
+        "south": { "texture": "wave_gate", "render_method": "opaque" },
+        "east": { "texture": "wave_gate", "render_method": "opaque" },
+        "west": { "texture": "wave_gate", "render_method": "opaque" }
+      },
+      "minecraft:light_emission": { "light_level": 5 }
+    },
+    "events": {
+      "vista:wave_gate_placed": {
+        "run_command": { "command": ["tag @s add vista_wave_gate", "data modify entity @s vista_url set value \"\""] }
+      },
+      "vista:wave_gate_destroyed": {
+        "run_command": { "command": ["tag @s remove vista_wave_gate"] }
+      },
+      "vista:wave_gate_interact": {
+        "sequence": [
+          { "run_command": { "command": ["vista wave_gate_open @s"] }}
+        ]
+      }
+    }
+  }
+}

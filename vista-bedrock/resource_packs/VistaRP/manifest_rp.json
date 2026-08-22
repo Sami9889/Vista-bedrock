@@ -1,0 +1,8 @@
+{
+  "format_version": "1.10.0",
+  "resource_pack_name": "Vista RP",
+  "resource_pack_description": "Vista textures and models",
+  "animation_controllers": [
+    "controller.animation.vista.cassette_loop"
+  ]
+}

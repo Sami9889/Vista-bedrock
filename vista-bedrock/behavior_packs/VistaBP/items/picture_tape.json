@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "vista:picture_tape",
+      "category": "Items",
+      "display_name": "Picture Tape"
+    },
+    "components": {
+      "minecraft:icon": { "texture": "picture_tape" },
+      "minecraft:display_name": { "value": "§6Picture Tape" },
+      "minecraft:use_duration": 0,
+      "minecraft:stacked_by_data": false,
+      "minecraft:hand_equipped": true,
+      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+    }
+  }
+}

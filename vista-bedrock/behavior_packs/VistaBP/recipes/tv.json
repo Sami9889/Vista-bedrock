@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "vista:craft_tv",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["igi", "gpg", "iri"],
+    "key": {
+      "i": { "item": "minecraft:iron_ingot" },
+      "g": { "item": "minecraft:stained_glass_pane", "data": 7 },
+      "p": { "item": "minecraft:glass_pane" },
+      "r": { "item": "minecraft:redstone" }
+    },
+    "result": { "item": "vista:tv_base", "count": 1 }
+  }
+}

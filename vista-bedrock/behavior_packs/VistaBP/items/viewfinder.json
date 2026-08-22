@@ -1,0 +1,17 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "vista:viewfinder",
+      "category": "Items",
+      "display_name": "Viewfinder"
+    },
+    "components": {
+      "minecraft:icon": { "texture": "viewfinder_item" },
+      "minecraft:display_name": { "value": "§7Viewfinder" },
+      "minecraft:use_duration": 0,
+      "minecraft:block_placer": { "block": "vista:viewfinder" },
+      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+    }
+  }
+}

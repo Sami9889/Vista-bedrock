@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "vista:cassette_magenta",
+      "category": "Items",
+      "display_name": "Magenta Cassette"
+    },
+    "components": {
+      "minecraft:icon": { "texture": "cassette_magenta" },
+      "minecraft:display_name": { "value": "§dMagenta Cassette" },
+      "minecraft:use_duration": 0,
+      "minecraft:stacked_by_data": false,
+      "minecraft:hand_equipped": true,
+      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+    }
+  }
+}
