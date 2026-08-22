@@ -1,0 +1,26 @@
+{
+  "format_version": 1,
+  "module": {
+    "name": "VistaRender",
+    "version": "1.0.0",
+    "description": "Client-side render pipeline hook for Vista TV/mirror/camera feeds",
+    "entry": "libvista_render",
+    "type": "client"
+  },
+  "hooks": [
+    {
+      "target": "ClientRenderSystem",
+      "phase": "post",
+      "entry": "hookRenderPipeline"
+    }
+  ],
+  "exposed_api": [
+    "createRenderTarget",
+    "destroyRenderTarget",
+    "beginCapture",
+    "endCapture",
+    "blitToBlock",
+    "processCommand",
+    "getStatus"
+  ]
+}

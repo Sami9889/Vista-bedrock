@@ -23,6 +23,72 @@ const BOUND_CASSETTES = new Map();
 const CAMERA_ENTS = new Map();
 const TV_SOUNDS = new Map();
 
+const VistaRenderBridge = {
+  available: false,
+  targetWidth: 256,
+  targetHeight: 144,
+
+  init() {
+    try {
+      if (typeof __vista_render !== 'undefined') {
+        this.available = true;
+        world.sendMessage("§a[Vista] Native render module detected.");
+        return;
+      }
+    } catch (e) {}
+    world.sendMessage("§7[Vista] Native render module not loaded. TV/mirror rendering disabled.");
+  },
+
+  createTarget(targetId) {
+    if (!this.available) return false;
+    try {
+      return __vista_render.createRenderTarget(targetId, {
+        width: this.targetWidth,
+        height: this.targetHeight,
+        enableDepth: true,
+        enableStencil: false
+      });
+    } catch (e) { return false; }
+  },
+
+  beginCapture(targetId, entity) {
+    if (!this.available || !entity) return false;
+    try {
+      const loc = entity.location;
+      const rot = entity.getRotation();
+      return __vista_render.beginCapture(targetId, {
+        x: loc.x, y: loc.y, z: loc.z,
+        yaw: rot.y, pitch: rot.x, roll: 0,
+        dimensionId: entity.dimension.id
+      });
+    } catch (e) { return false; }
+  },
+
+  endCapture(targetId) {
+    if (!this.available) return false;
+    try {
+      return __vista_render.endCapture(targetId);
+    } catch (e) { return false; }
+  },
+
+  blitToTV(targetId, block, face) {
+    if (!this.available || !block) return false;
+    try {
+      return __vista_render.blitToBlock(targetId,
+        block.location.x, block.location.y, block.location.z, face);
+    } catch (e) { return false; }
+  },
+
+  processCommand(type, args = []) {
+    if (!this.available) return false;
+    try {
+      return __vista_render.processCommand({ type, args });
+    } catch (e) { return false; }
+  }
+};
+
+VistaRenderBridge.init();
+
 const CASSETTE_TAPES = [
   { id: "67", color: "0xff02ea5b", asset: "vista:matrix", comparator: 6 },
   { id: "axolotl", color: "0xfffaaad9", asset: "vista:axolotl", comparator: 10 },
