@@ -7,6 +7,7 @@
     },
     "components": {
       "minecraft:icon": { "texture": "cassette_red" },
+      "minecraft:model": { "model": "vista:geometry.cassette_red" },
       "minecraft:display_name": { "value": "§cRed Cassette" },
       "minecraft:hand_equipped": true,
       "minecraft:max_stack_size": 1,

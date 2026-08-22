@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "vista:angered_from_tv"
+        }
+      ],
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "vista:music_disc_sojourn"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "vista:entities/enderman"
+}

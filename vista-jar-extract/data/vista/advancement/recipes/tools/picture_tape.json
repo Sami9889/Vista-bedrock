@@ -1,0 +1,45 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "vista:flag",
+      "flag": "picture_tape"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "vista:flag",
+      "flag": "picture_tape"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dried_kelp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:dried_kelp"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "vista:picture_tape"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dried_kelp",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vista:picture_tape"
+    ]
+  },
+  "sending_telemetry_event": false
+}

@@ -7,6 +7,7 @@
     },
     "components": {
       "minecraft:icon": { "texture": "picture_tape" },
+      "minecraft:model": { "model": "vista:geometry.picture_tape" },
       "minecraft:display_name": { "value": "§6Picture Tape" },
       "minecraft:hand_equipped": true,
       "minecraft:max_stack_size": 1,

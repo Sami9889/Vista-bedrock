@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "vista:item/cassette",
+    "layer1": "vista:item/cassette_overlay"
+  }
+}

@@ -16,11 +16,18 @@
       "minecraft:destructible_by_explosion": { "explosion_resistance": 5 },
       "minecraft:flammable": { "catch_chance_modifier": 5, "destroy_chance_modifier": 20 },
       "minecraft:map_color": [50, 50, 60],
+      "minecraft:geometry": "geometry.tv",
       "minecraft:material_instances": {
-        "*": { "texture": "tv", "render_method": "opaque" }
+        "north": { "texture": "tv_front", "render_method": "opaque" },
+        "south": { "texture": "tv_back", "render_method": "opaque" },
+        "east": { "texture": "tv_side", "render_method": "opaque" },
+        "west": { "texture": "tv_side", "render_method": "opaque" },
+        "up": { "texture": "tv_top", "render_method": "opaque" },
+        "down": { "texture": "tv_top", "render_method": "opaque" }
       },
       "minecraft:light_emission": { "light_level": 3 },
       "minecraft:redstone": { "redstone_signal": true },
+      "minecraft:cardinal_direction": {},
       "minecraft:on_player_placing": { "event": "vista:on_placed" },
       "minecraft:on_player_destroyed": { "event": "vista:on_destroyed" },
       "minecraft:on_interact": { "event": "vista:on_interact" }
@@ -36,10 +43,7 @@
       {
         "condition": "query.block_state('vista:on') == true",
         "components": {
-          "minecraft:light_emission": { "light_level": 10 },
-          "minecraft:material_instances": {
-            "*": { "texture": "tv", "render_method": "opaque" }
-          }
+          "minecraft:light_emission": { "light_level": 10 }
         }
       }
     ]

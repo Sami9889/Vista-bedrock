@@ -21,6 +21,8 @@
     "viewfinder_item": { "textures": "textures/items/viewfinder_item" },
     "mirror_item": { "textures": "textures/items/mirror_item" },
     "wave_gate_item": { "textures": "textures/items/wave_gate_item" },
-    "crystalline": { "textures": "textures/items/crystalline" }
+    "crystalline": { "textures": "textures/items/crystalline" },
+    "music_disc_sojourn": { "textures": "textures/items/music_disc_sojourn" },
+    "camera_item": { "textures": "textures/items/camera_item" }
   }
 }

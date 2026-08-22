@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Specification-Title: Vista
+Specification-Vendor: MehVahdJukaar, Plantkillable
+Specification-Version: 1.21.1-5.4.4
+Implementation-Title: Vista
+Implementation-Version: 1.21.1-5.4.4
+Implementation-Vendor: MehVahdJukaar, Plantkillable
+Implementation-Timestamp: 2026-08-18T17:21:48.708113418
+Fabric-Jar-Type: classes
+Fabric-Loom-Mixin-Remap-Type: static
+Fabric-Gradle-Version: 9.6.1
+Fabric-Loom-Version: 1.17.19
+Fabric-Mixin-Compile-Extensions-Version: 0.6.0
+Fabric-Minecraft-Version: 1.21.1
+Fabric-Tiny-Remapper-Version: 0.14.0
+Fabric-Loader-Version: 0.19.3
+Fabric-Mixin-Version: 0.17.3+mixin.0.8.7
+Fabric-Mixin-Group: net.fabricmc
+Fabric-Mapping-Namespace: intermediary
+

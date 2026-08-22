@@ -6,10 +6,10 @@
       "group": "vista"
     },
     "tags": ["crafting_table"],
-    "pattern": ["ppp", "s s", "sss"],
+    "pattern": ["DDD", "DID", "DDD"],
     "key": {
-      "p": { "item": "minecraft:paper" },
-      "s": { "item": "minecraft:string" }
+      "D": { "item": "minecraft:dried_kelp" },
+      "I": { "item": "minecraft:iron_ingot" }
     },
     "result": { "item": "vista:picture_tape", "count": 1 }
   }

@@ -1,0 +1,19 @@
+{
+  "vertex": "vista:posterize",
+  "fragment": "vista:posterize",
+  "attributes": [ "Position" ],
+  "samplers": [
+    { "name": "DiffuseSampler" }
+  ],
+  "uniforms": [
+    { "name": "InSize",           "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "OutSize",          "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+    { "name": "PostMode", "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "PostLevels", "type": "float", "count": 3, "values": [ 36.0, 28.0, 28.0 ] },
+    { "name": "DitherScale", "type": "float", "count": 1, "values": [ 1.0 ] },
+    { "name": "DitherStrength", "type": "float", "count": 1, "values": [ 1.0 ] }
+  ]
+}
+
+

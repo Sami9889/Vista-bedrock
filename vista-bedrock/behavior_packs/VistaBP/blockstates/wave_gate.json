@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "creative=false,facing=north": {
+      "model": "vista:block/wave_gate"
+    },
+    "creative=false,facing=east": {
+      "model": "vista:block/wave_gate",
+      "y": 90
+    },
+    "creative=false,facing=south": {
+      "model": "vista:block/wave_gate",
+      "y": 180
+    },
+    "creative=false,facing=west": {
+      "model": "vista:block/wave_gate",
+      "y": 270
+    },
+    "creative=true,facing=north": {
+      "model": "vista:block/wave_gate_creative"
+    },
+    "creative=true,facing=east": {
+      "model": "vista:block/wave_gate_creative",
+      "y": 90
+    },
+    "creative=true,facing=south": {
+      "model": "vista:block/wave_gate_creative",
+      "y": 180
+    },
+    "creative=true,facing=west": {
+      "model": "vista:block/wave_gate_creative",
+      "y": 270
+    }
+  }
+}

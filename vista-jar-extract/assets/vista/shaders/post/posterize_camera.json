@@ -1,0 +1,17 @@
+{
+  "targets": [
+    "swap"
+  ],
+  "passes": [
+    {
+      "name": "vista:posterize",
+      "intarget": "minecraft:main",
+      "outtarget": "swap"
+    },
+    {
+      "name": "vista:blit_flip_y",
+      "intarget": "swap",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

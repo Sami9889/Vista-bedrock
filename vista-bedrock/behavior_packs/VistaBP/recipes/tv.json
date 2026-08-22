@@ -2,17 +2,17 @@
   "format_version": "1.26.40",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "vista:craft_tv",
+      "identifier": "vista:craft_television",
       "group": "vista"
     },
     "tags": ["crafting_table"],
-    "pattern": ["igi", "gpg", "iri"],
+    "pattern": ["212", "213", "200"],
     "key": {
-      "i": { "item": "minecraft:iron_ingot" },
-      "g": { "item": "minecraft:black_stained_glass_pane" },
-      "p": { "item": "minecraft:glass_pane" },
-      "r": { "item": "minecraft:redstone" }
+      "0": { "tag": "minecraft:planks" },
+      "1": { "item": "minecraft:diamond" },
+      "2": { "item": "minecraft:tinted_glass" },
+      "3": { "item": "minecraft:redstone" }
     },
-    "result": { "item": "vista:tv_base", "count": 1 }
+    "result": { "item": "vista:tv", "count": 1 }
   }
 }

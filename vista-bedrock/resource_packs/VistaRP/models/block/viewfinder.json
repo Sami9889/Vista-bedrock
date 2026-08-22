@@ -1,0 +1,30 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.viewfinder",
+      "texture_width": 64,
+      "texture_height": 64
+    },
+    "bones": [
+      {
+        "name": "viewfinder",
+        "pivot": [6, 4, 3],
+        "cubes": [
+          {
+            "origin": [-6, 0, -3],
+            "size": [12, 8, 6],
+            "uv": {
+              "north": {"uv": [0, 0, 12, 8], "texture": "viewfinder"},
+              "south": {"uv": [0, 0, 12, 8], "texture": "viewfinder"},
+              "east": {"uv": [0, 0, 6, 8], "texture": "viewfinder"},
+              "west": {"uv": [0, 0, 6, 8], "texture": "viewfinder"},
+              "up": {"uv": [0, 0, 12, 6], "texture": "viewfinder"},
+              "down": {"uv": [0, 0, 12, 6], "texture": "viewfinder"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

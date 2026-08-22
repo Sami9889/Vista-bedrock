@@ -6,11 +6,11 @@
       "group": "vista"
     },
     "tags": ["crafting_table"],
-    "pattern": ["ggg", "g g", "iii"],
+    "pattern": ["GGG", "GCG", "GGG"],
     "key": {
-      "g": { "item": "minecraft:glass" },
-      "i": { "item": "minecraft:iron_ingot" }
+      "G": { "item": "minecraft:glass" },
+      "C": { "item": "vista:crystalline" }
     },
-    "result": { "item": "vista:mirror", "count": 2 }
+    "result": { "item": "vista:mirror", "count": 1 }
   }
 }

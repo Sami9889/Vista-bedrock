@@ -1,0 +1,30 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.wave_gate_item",
+      "texture_width": 64,
+      "texture_height": 32
+    },
+    "bones": [
+      {
+        "name": "wave_gate",
+        "pivot": [8, 8, 4],
+        "cubes": [
+          {
+            "origin": [-8, 0, -4],
+            "size": [16, 8, 8],
+            "uv": {
+              "north": {"uv": [0, 0, 16, 8], "texture": "wave_gate_item"},
+              "south": {"uv": [0, 0, 16, 8], "texture": "wave_gate_item"},
+              "east": {"uv": [0, 0, 8, 8], "texture": "wave_gate_item"},
+              "west": {"uv": [0, 0, 8, 8], "texture": "wave_gate_item"},
+              "up": {"uv": [0, 0, 16, 8], "texture": "wave_gate_item"},
+              "down": {"uv": [0, 0, 16, 8], "texture": "wave_gate_item"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@
     },
     "components": {
       "minecraft:icon": { "texture": "cassette_light_blue" },
+      "minecraft:model": { "model": "vista:geometry.cassette_light_blue" },
       "minecraft:display_name": { "value": "§bLight Blue Cassette" },
       "minecraft:hand_equipped": true,
       "minecraft:max_stack_size": 1,

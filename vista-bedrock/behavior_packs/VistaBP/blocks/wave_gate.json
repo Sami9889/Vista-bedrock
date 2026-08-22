@@ -14,13 +14,20 @@
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 1.5 },
       "minecraft:flammable": { "catch_chance_modifier": 5, "destroy_chance_modifier": 20 },
       "minecraft:map_color": [102, 26, 26],
+      "minecraft:geometry": "geometry.wave_gate",
       "minecraft:material_instances": {
-        "*": { "texture": "wave_gate", "render_method": "opaque" }
+        "north": { "texture": "wave_gate", "render_method": "opaque" },
+        "south": { "texture": "wave_gate", "render_method": "opaque" },
+        "east": { "texture": "wave_gate", "render_method": "opaque" },
+        "west": { "texture": "wave_gate", "render_method": "opaque" },
+        "up": { "texture": "wave_gate_top", "render_method": "opaque" },
+        "down": { "texture": "wave_gate_top", "render_method": "opaque" }
       },
       "minecraft:light_emission": { "light_level": 5 },
       "minecraft:on_player_placing": { "event": "vista:wave_gate_placed" },
       "minecraft:on_player_destroyed": { "event": "vista:wave_gate_destroyed" },
-      "minecraft:on_interact": { "event": "vista:wave_gate_interact" }
+      "minecraft:on_interact": { "event": "vista:wave_gate_interact" },
+      "minecraft:cardinal_direction": {}
     },
     "events": {
       "vista:wave_gate_placed": {},

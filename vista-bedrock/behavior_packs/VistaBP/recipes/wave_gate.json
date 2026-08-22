@@ -6,11 +6,11 @@
       "group": "vista"
     },
     "tags": ["crafting_table"],
-    "pattern": ["rgr", "i i", "iii"],
+    "pattern": ["212", "101"],
     "key": {
-      "r": { "item": "minecraft:redstone" },
-      "g": { "item": "minecraft:glass" },
-      "i": { "item": "minecraft:iron_ingot" }
+      "0": { "tag": "minecraft:planks" },
+      "1": { "item": "minecraft:obsidian" },
+      "2": { "item": "minecraft:end_rod" }
     },
     "result": { "item": "vista:wave_gate", "count": 1 }
   }

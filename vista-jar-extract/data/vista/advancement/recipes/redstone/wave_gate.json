@@ -1,0 +1,45 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "vista:flag",
+      "flag": "wave_gate"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "vista:flag",
+      "flag": "wave_gate"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_end_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:end_rod"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "vista:wave_gate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_end_rod",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vista:wave_gate"
+    ]
+  },
+  "sending_telemetry_event": false
+}

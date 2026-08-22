@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "111",
+    "121",
+    "000"
+  ],
+  "key": {
+    "0": {
+      "tag": "minecraft:planks"
+    },
+    "1": {
+      "tag": "c:ingots/iron"
+    },
+    "2": {
+      "item": "minecraft:spyglass"
+    }
+  },
+  "result": {
+    "id": "vista:viewfinder",
+    "count": 1
+  }
+}

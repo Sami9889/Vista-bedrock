@@ -1,0 +1,33 @@
+{
+  "music_disc.sojourn": {
+    "sounds": [
+      {
+        "name": "vista:music/sojourn",
+        "stream": true
+      }
+    ]
+  },
+  "block.television.insert": {
+    "sounds": [
+      "vista:block/cassette_insert"
+    ],
+    "subtitle": "subtitles.vista.television.insert"
+  },
+  "block.television.eject": {
+    "sounds": [
+      {
+        "name": "vista:block/cassette_eject",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.vista.television.insert"
+  },
+  "block.television.static": {
+    "sounds": [
+      {
+        "name": "vista:block/television_static",
+        "volume": 0.01
+      }
+    ]
+  }
+}
