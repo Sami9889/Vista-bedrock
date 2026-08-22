@@ -1,0 +1,15 @@
+{
+  "format_version": "1.20.0",
+  "animations": {
+    "animation.vista.cassette_orange_loop": {
+      "loop": true,
+      "duration": 3,
+      "bones": {
+        "cassette": {
+          "rotation": ["0", "0", "0..40..0..-40..0"],
+          "position": {"0": [0, 0, 0], "1.5": [0, 0, 0.2]}
+        }
+      }
+    }
+  }
+}

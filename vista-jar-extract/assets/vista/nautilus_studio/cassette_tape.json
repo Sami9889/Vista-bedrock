@@ -1,0 +1,16 @@
+{
+  "registry": "vista:cassette_tape",
+  "label": "vista.nautilus_studio.cassette_tape",
+  "wiki": "https://github.com/MehVahdJukaar/cameramod",
+  "companion": {
+    "field": "asset_id",
+    "dir": "textures/cassette_tape",
+    "side": "client",
+    "ext": [
+      ".png",
+      ".gif"
+    ],
+    "label": "tape texture",
+    "required": true
+  }
+}

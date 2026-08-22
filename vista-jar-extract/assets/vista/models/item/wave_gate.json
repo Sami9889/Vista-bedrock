@@ -1,0 +1,17 @@
+{
+  "parent": "vista:item/wave_gate_creative",
+  "overrides": [
+    {
+      "predicate": {
+        "vista:creative": 0
+      },
+      "model": "vista:item/wave_gate_survival"
+    },
+    {
+      "predicate": {
+        "vista:creative": 1
+      },
+      "model": "vista:item/wave_gate_creative"
+    }
+  ]
+}

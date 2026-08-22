@@ -1,0 +1,16 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "vista:craft_picture_tape",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["DDD", "DID", "DDD"],
+    "key": {
+      "D": { "item": "minecraft:dried_kelp" },
+      "I": { "item": "minecraft:iron_ingot" }
+    },
+    "result": { "item": "vista:picture_tape", "count": 1 }
+  }
+}

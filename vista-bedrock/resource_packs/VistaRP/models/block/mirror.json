@@ -1,0 +1,30 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.mirror",
+      "texture_width": 64,
+      "texture_height": 64
+    },
+    "bones": [
+      {
+        "name": "mirror",
+        "pivot": [8, 8, 1],
+        "cubes": [
+          {
+            "origin": [-8, 0, -1],
+            "size": [16, 16, 2],
+            "uv": {
+              "north": {"uv": [0, 0, 16, 16], "texture": "mirror"},
+              "south": {"uv": [0, 0, 16, 16], "texture": "mirror"},
+              "east": {"uv": [0, 0, 2, 16], "texture": "mirror"},
+              "west": {"uv": [0, 0, 2, 16], "texture": "mirror"},
+              "up": {"uv": [0, 0, 16, 2], "texture": "mirror"},
+              "down": {"uv": [0, 0, 16, 2], "texture": "mirror"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "vista:crystalline",
+      "menu_category": { "category": "items" }
+    },
+    "components": {
+      "minecraft:icon": { "texture": "crystalline" },
+      "minecraft:model": { "model": "vista:geometry.crystalline_item" },
+      "minecraft:display_name": { "value": "§bCrystalline" },
+      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+    }
+  }
+}

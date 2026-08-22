@@ -1,0 +1,9 @@
+{
+	"parent": "vista:block/wave_gate",
+	"textures": {
+		"1": "vista:block/wave_gate/top_creative",
+		"2": "vista:block/wave_gate/side_creative",
+		"particle": "vista:block/wave_gate/side_creative",
+		"3": "vista:block/wave_gate/antenna"
+	}
+}

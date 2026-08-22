@@ -1,0 +1,28 @@
+{
+  "resource_pack_name": "VistaRP",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "cassette_blue": { "textures": "textures/items/cassette_blue" },
+    "cassette_red": { "textures": "textures/items/cassette_red" },
+    "cassette_green": { "textures": "textures/items/cassette_green" },
+    "cassette_yellow": { "textures": "textures/items/cassette_yellow" },
+    "cassette_purple": { "textures": "textures/items/cassette_purple" },
+    "cassette_orange": { "textures": "textures/items/cassette_orange" },
+    "cassette_cyan": { "textures": "textures/items/cassette_cyan" },
+    "cassette_pink": { "textures": "textures/items/cassette_pink" },
+    "cassette_white": { "textures": "textures/items/cassette_white" },
+    "cassette_black": { "textures": "textures/items/cassette_black" },
+    "cassette_gray": { "textures": "textures/items/cassette_gray" },
+    "cassette_lime": { "textures": "textures/items/cassette_lime" },
+    "cassette_light_blue": { "textures": "textures/items/cassette_light_blue" },
+    "cassette_magenta": { "textures": "textures/items/cassette_magenta" },
+    "hollow_cassette": { "textures": "textures/items/hollow_cassette" },
+    "picture_tape": { "textures": "textures/items/picture_tape" },
+    "viewfinder_item": { "textures": "textures/items/viewfinder_item" },
+    "mirror_item": { "textures": "textures/items/mirror_item" },
+    "wave_gate_item": { "textures": "textures/items/wave_gate_item" },
+    "crystalline": { "textures": "textures/items/crystalline" },
+    "music_disc_sojourn": { "textures": "textures/items/music_disc_sojourn" },
+    "camera_item": { "textures": "textures/items/camera_item" }
+  }
+}

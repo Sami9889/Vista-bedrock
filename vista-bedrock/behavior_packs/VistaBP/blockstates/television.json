@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=north,connection=single": {
+      "model": "vista:block/television"
+    },
+    "facing=north,connection=top": {
+      "model": "vista:block/television_top"
+    },
+    "facing=north,connection=bottom": {
+      "model": "vista:block/television_bottom"
+    },
+    "facing=north,connection=left": {
+      "model": "vista:block/television_left"
+    },
+    "facing=north,connection=right": {
+      "model": "vista:block/television_right"
+    },
+    "facing=north,connection=top_left": {
+      "model": "vista:block/television_top_left"
+    },
+    "facing=north,connection=top_right": {
+      "model": "vista:block/television_top_right"
+    },
+    "facing=north,connection=bottom_left": {
+      "model": "vista:block/television_bottom_left"
+    },
+    "facing=north,connection=bottom_right": {
+      "model": "vista:block/television_bottom_right"
+    },
+    "facing=north,connection=center": {
+      "model": "vista:block/television_center"
+    },
+    "facing=east,connection=single": {
+      "model": "vista:block/television",
+      "y": 90
+    },
+    "facing=east,connection=top": {
+      "model": "vista:block/television_top",
+      "y": 90
+    },
+    "facing=east,connection=bottom": {
+      "model": "vista:block/television_bottom",
+      "y": 90
+    },
+    "facing=east,connection=left": {
+      "model": "vista:block/television_left",
+      "y": 90
+    },
+    "facing=east,connection=right": {
+      "model": "vista:block/television_right",
+      "y": 90
+    },
+    "facing=east,connection=top_left": {
+      "model": "vista:block/television_top_left",
+      "y": 90
+    },
+    "facing=east,connection=top_right": {
+      "model": "vista:block/television_top_right",
+      "y": 90
+    },
+    "facing=east,connection=bottom_left": {
+      "model": "vista:block/television_bottom_left",
+      "y": 90
+    },
+    "facing=east,connection=bottom_right": {
+      "model": "vista:block/television_bottom_right",
+      "y": 90
+    },
+    "facing=east,connection=center": {
+      "model": "vista:block/television_center",
+      "y": 90
+    },
+    "facing=south,connection=single": {
+      "model": "vista:block/television",
+      "y": 180
+    },
+    "facing=south,connection=top": {
+      "model": "vista:block/television_top",
+      "y": 180
+    },
+    "facing=south,connection=bottom": {
+      "model": "vista:block/television_bottom",
+      "y": 180
+    },
+    "facing=south,connection=left": {
+      "model": "vista:block/television_left",
+      "y": 180
+    },
+    "facing=south,connection=right": {
+      "model": "vista:block/television_right",
+      "y": 180
+    },
+    "facing=south,connection=top_left": {
+      "model": "vista:block/television_top_left",
+      "y": 180
+    },
+    "facing=south,connection=top_right": {
+      "model": "vista:block/television_top_right",
+      "y": 180
+    },
+    "facing=south,connection=bottom_left": {
+      "model": "vista:block/television_bottom_left",
+      "y": 180
+    },
+    "facing=south,connection=bottom_right": {
+      "model": "vista:block/television_bottom_right",
+      "y": 180
+    },
+    "facing=south,connection=center": {
+      "model": "vista:block/television_center",
+      "y": 180
+    },
+    "facing=west,connection=single": {
+      "model": "vista:block/television",
+      "y": 270
+    },
+    "facing=west,connection=top": {
+      "model": "vista:block/television_top",
+      "y": 270
+    },
+    "facing=west,connection=bottom": {
+      "model": "vista:block/television_bottom",
+      "y": 270
+    },
+    "facing=west,connection=left": {
+      "model": "vista:block/television_left",
+      "y": 270
+    },
+    "facing=west,connection=right": {
+      "model": "vista:block/television_right",
+      "y": 270
+    },
+    "facing=west,connection=top_left": {
+      "model": "vista:block/television_top_left",
+      "y": 270
+    },
+    "facing=west,connection=top_right": {
+      "model": "vista:block/television_top_right",
+      "y": 270
+    },
+    "facing=west,connection=bottom_left": {
+      "model": "vista:block/television_bottom_left",
+      "y": 270
+    },
+    "facing=west,connection=bottom_right": {
+      "model": "vista:block/television_bottom_right",
+      "y": 270
+    },
+    "facing=west,connection=center": {
+      "model": "vista:block/television_center",
+      "y": 270
+    },
+    "facing=north,connection=h_left": {
+      "model": "vista:block/television_h_left"
+    },
+    "facing=north,connection=h_right": {
+      "model": "vista:block/television_h_right"
+    },
+    "facing=north,connection=h_middle": {
+      "model": "vista:block/television_h_middle"
+    },
+    "facing=north,connection=v_top": {
+      "model": "vista:block/television_v_top"
+    },
+    "facing=north,connection=v_bottom": {
+      "model": "vista:block/television_v_bottom"
+    },
+    "facing=north,connection=v_middle": {
+      "model": "vista:block/television_v_middle"
+    },
+    "facing=east,connection=h_left": {
+      "model": "vista:block/television_h_left",
+      "y": 90
+    },
+    "facing=east,connection=h_right": {
+      "model": "vista:block/television_h_right",
+      "y": 90
+    },
+    "facing=east,connection=h_middle": {
+      "model": "vista:block/television_h_middle",
+      "y": 90
+    },
+    "facing=east,connection=v_top": {
+      "model": "vista:block/television_v_top",
+      "y": 90
+    },
+    "facing=east,connection=v_bottom": {
+      "model": "vista:block/television_v_bottom",
+      "y": 90
+    },
+    "facing=east,connection=v_middle": {
+      "model": "vista:block/television_v_middle",
+      "y": 90
+    },
+    "facing=south,connection=h_left": {
+      "model": "vista:block/television_h_left",
+      "y": 180
+    },
+    "facing=south,connection=h_right": {
+      "model": "vista:block/television_h_right",
+      "y": 180
+    },
+    "facing=south,connection=h_middle": {
+      "model": "vista:block/television_h_middle",
+      "y": 180
+    },
+    "facing=south,connection=v_top": {
+      "model": "vista:block/television_v_top",
+      "y": 180
+    },
+    "facing=south,connection=v_bottom": {
+      "model": "vista:block/television_v_bottom",
+      "y": 180
+    },
+    "facing=south,connection=v_middle": {
+      "model": "vista:block/television_v_middle",
+      "y": 180
+    },
+    "facing=west,connection=h_left": {
+      "model": "vista:block/television_h_left",
+      "y": 270
+    },
+    "facing=west,connection=h_right": {
+      "model": "vista:block/television_h_right",
+      "y": 270
+    },
+    "facing=west,connection=h_middle": {
+      "model": "vista:block/television_h_middle",
+      "y": 270
+    },
+    "facing=west,connection=v_top": {
+      "model": "vista:block/television_v_top",
+      "y": 270
+    },
+    "facing=west,connection=v_bottom": {
+      "model": "vista:block/television_v_bottom",
+      "y": 270
+    },
+    "facing=west,connection=v_middle": {
+      "model": "vista:block/television_v_middle",
+      "y": 270
+    }
+  }
+}

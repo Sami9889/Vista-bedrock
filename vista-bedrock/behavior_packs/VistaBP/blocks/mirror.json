@@ -1,0 +1,29 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:block": {
+    "description": {
+      "identifier": "vista:mirror",
+      "menu_category": { "category": "items" }
+    },
+    "components": {
+      "minecraft:collision_box": { "origin": [-8, 0, -1], "size": [16, 16, 1] },
+      "minecraft:selection_box": { "origin": [-8, 0, -1], "size": [16, 16, 1] },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.8 },
+      "minecraft:map_color": [204, 217, 255],
+      "minecraft:geometry": "geometry.mirror",
+      "minecraft:material_instances": {
+        "north": { "texture": "mirror_front", "render_method": "alpha_test", "ambient_occlusion": false },
+        "south": { "texture": "mirror_back", "render_method": "opaque" },
+        "east": { "texture": "mirror", "render_method": "opaque" },
+        "west": { "texture": "mirror", "render_method": "opaque" },
+        "up": { "texture": "mirror", "render_method": "opaque" },
+        "down": { "texture": "mirror", "render_method": "opaque" }
+      },
+      "minecraft:on_player_placing": { "event": "vista:mirror_placed" },
+      "minecraft:cardinal_direction": {}
+    },
+    "events": {
+      "vista:mirror_placed": {}
+    }
+  }
+}

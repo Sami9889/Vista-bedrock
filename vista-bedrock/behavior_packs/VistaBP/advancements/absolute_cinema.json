@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:adventure": {
+    "absolute_cinema": {
+      "parent": "minecraft:husbandry/root",
+      "display": {
+        "icon": {
+          "item": "vista:tv"
+        },
+        "title": {
+          "translate": "advancements.husbandry.vista.absolute_cinema.title"
+        },
+        "description": {
+          "translate": "advancements.husbandry.vista.absolute_cinema.description"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+      },
+      "criteria": {
+        "unlock": {
+          "trigger": "minecraft:impossible"
+        }
+      },
+      "requirements": [
+        [
+          "unlock"
+        ]
+      ]
+    }
+  }
+}

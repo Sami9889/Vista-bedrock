@@ -1,0 +1,26 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Vista Resource Pack",
+    "description": "Textures and models for Vista working screens addon",
+    "uuid": "1a2b3c4d-1111-2222-3333-444455556669",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "description": "Vista textures, models, animations",
+      "type": "resources",
+      "uuid": "1a2b3c4d-1111-2222-3333-444455556670",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [],
+  "metadata": {
+    "authors": ["Vista"],
+    "product_type": "addon",
+    "generated_with": {
+      "vista": ["1.0.0"]
+    }
+  }
+}

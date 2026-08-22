@@ -1,0 +1,18 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:block": {
+    "description": {
+      "identifier": "vista:tv_base",
+      "menu_category": { "category": "items" }
+    },
+    "components": {
+      "minecraft:collision_box": { "origin": [-8, 0, -8], "size": [16, 4, 12] },
+      "minecraft:selection_box": { "origin": [-8, 0, -8], "size": [16, 4, 12] },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 1.5 },
+      "minecraft:map_color": [38, 38, 46],
+      "minecraft:material_instances": {
+        "*": { "texture": "tv_base", "render_method": "opaque" }
+      }
+    }
+  }
+}

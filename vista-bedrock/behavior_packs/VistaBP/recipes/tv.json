@@ -1,0 +1,18 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "vista:craft_television",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["212", "213", "200"],
+    "key": {
+      "0": { "tag": "minecraft:planks" },
+      "1": { "item": "minecraft:diamond" },
+      "2": { "item": "minecraft:tinted_glass" },
+      "3": { "item": "minecraft:redstone" }
+    },
+    "result": { "item": "vista:tv", "count": 1 }
+  }
+}

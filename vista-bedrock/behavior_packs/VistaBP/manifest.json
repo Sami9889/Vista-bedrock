@@ -1,0 +1,47 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Vista Behavior Pack",
+    "description": "Working screens, TVs, cassettes, mirrors and more - Bedrock Edition port of Vista",
+    "uuid": "1a2b3c4d-1111-2222-3333-444455556666",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "description": "Vista block and item data",
+      "type": "data",
+      "uuid": "1a2b3c4d-1111-2222-3333-444455556667",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "Vista gameplay scripts",
+      "type": "script",
+      "uuid": "1a2b3c4d-1111-2222-3333-444455556668",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js",
+      "language": "javascript"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "1a2b3c4d-1111-2222-3333-444455556669",
+      "version": [1, 0, 0]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": ["Vista"],
+    "product_type": "addon",
+    "generated_with": {
+      "vista": ["1.0.0"]
+    }
+  }
+}

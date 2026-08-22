@@ -1,0 +1,30 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.picture_tape",
+      "texture_width": 64,
+      "texture_height": 32
+    },
+    "bones": [
+      {
+        "name": "picture_tape",
+        "pivot": [8, 8, 4],
+        "cubes": [
+          {
+            "origin": [-8, 0, -4],
+            "size": [16, 8, 8],
+            "uv": {
+              "north": {"uv": [0, 0, 16, 8], "texture": "picture_tape"},
+              "south": {"uv": [0, 0, 16, 8], "texture": "picture_tape"},
+              "east": {"uv": [0, 0, 8, 8], "texture": "picture_tape"},
+              "west": {"uv": [0, 0, 8, 8], "texture": "picture_tape"},
+              "up": {"uv": [0, 0, 16, 8], "texture": "picture_tape"},
+              "down": {"uv": [0, 0, 16, 8], "texture": "picture_tape"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

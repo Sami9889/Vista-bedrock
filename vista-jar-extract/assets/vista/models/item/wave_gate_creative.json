@@ -1,0 +1,9 @@
+{
+	"parent": "vista:item/wave_gate_survival",
+	"textures": {
+		"1": "vista:block/wave_gate/top_creative",
+		"2": "vista:block/wave_gate/side_creative",
+		"3": "vista:block/wave_gate/antenna",
+		"4": "vista:block/wave_gate/wave"
+	}
+}

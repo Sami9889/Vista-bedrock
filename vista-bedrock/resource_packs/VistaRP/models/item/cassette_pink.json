@@ -1,0 +1,30 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.cassette_pink",
+      "texture_width": 64,
+      "texture_height": 32
+    },
+    "bones": [
+      {
+        "name": "cassette",
+        "pivot": [8, 8, 4],
+        "cubes": [
+          {
+            "origin": [-8, 0, -4],
+            "size": [16, 8, 8],
+            "uv": {
+              "north": {"uv": [0, 0, 16, 8], "texture": "cassette_pink"},
+              "south": {"uv": [0, 0, 16, 8], "texture": "cassette_pink"},
+              "east": {"uv": [0, 0, 8, 8], "texture": "cassette_pink"},
+              "west": {"uv": [0, 0, 8, 8], "texture": "cassette_pink"},
+              "up": {"uv": [0, 0, 16, 8], "texture": "cassette_overlay"},
+              "down": {"uv": [0, 0, 16, 8], "texture": "cassette_pink"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

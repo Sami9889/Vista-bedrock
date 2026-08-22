@@ -1,0 +1,19 @@
+{
+  "resource_pack_name": "VistaRP",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "tv_front": { "textures": "textures/blocks/tv/front/default" },
+    "tv_back": { "textures": "textures/blocks/tv/back/default" },
+    "tv_side": { "textures": "textures/blocks/tv/side/default" },
+    "tv_top": { "textures": "textures/blocks/tv/top/default" },
+    "tv_base": { "textures": "textures/blocks/tv_base" },
+    "viewfinder": { "textures": "textures/blocks/viewfinder" },
+    "mirror": { "textures": "textures/blocks/mirror/side" },
+    "mirror_front": { "textures": "textures/blocks/mirror/front/default" },
+    "mirror_back": { "textures": "textures/blocks/mirror/back/default" },
+    "wave_gate": { "textures": "textures/blocks/wave_gate/side" },
+    "wave_gate_top": { "textures": "textures/blocks/wave_gate/top" },
+    "crystalline": { "textures": "textures/blocks/crystalline" },
+    "camera_block": { "textures": "textures/blocks/camera_block" }
+  }
+}

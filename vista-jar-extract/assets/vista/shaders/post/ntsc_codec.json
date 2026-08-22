@@ -1,0 +1,17 @@
+{
+    "targets": [
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "vista:ntsc_encode",
+            "intarget": "minecraft:main",
+            "outtarget": "swap"
+        },
+        {
+            "name": "vista:ntsc_decode",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}

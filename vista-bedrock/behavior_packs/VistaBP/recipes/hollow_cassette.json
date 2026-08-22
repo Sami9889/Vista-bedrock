@@ -1,0 +1,15 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "vista:craft_hollow_cassette",
+      "group": "vista"
+    },
+    "tags": ["crafting_table"],
+    "ingredients": [
+      { "item": "vista:cassette_blue" },
+      { "item": "minecraft:echo_shard" }
+    ],
+    "result": { "item": "vista:hollow_cassette", "count": 1 }
+  }
+}

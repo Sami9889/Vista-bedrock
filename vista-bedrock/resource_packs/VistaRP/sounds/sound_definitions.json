@@ -1,0 +1,27 @@
+{
+  "music_disc.sojourn": {
+    "category": "music",
+    "sounds": [
+      "sounds/music/sojourn"
+    ]
+  },
+  "block.television.insert": {
+    "category": "block",
+    "sounds": [
+      "sounds/block/cassette_insert"
+    ]
+  },
+  "block.television.eject": {
+    "category": "block",
+    "sounds": [
+      "sounds/block/cassette_eject"
+    ]
+  },
+  "block.television.static": {
+    "category": "block",
+    "volume": 0.01,
+    "sounds": [
+      "sounds/block/television_static"
+    ]
+  }
+}

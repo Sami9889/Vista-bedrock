@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/cube",
+  "elements": [
+    {   "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "up":    { "texture": "#up", "cullface": "up" },
+        "north": { "texture": "#north", "cullface": "north" },
+        "south": { "texture": "#south", "cullface": "south" },
+        "west":  { "texture": "#west", "cullface": "west" }
+      }
+    }
+  ],
+  "textures": {
+    "particle": "vista:block/tv/front/default",
+    "north": "vista:block/tv/front/top_right",
+    "south": "vista:block/tv/back/top_left",
+    "west": "vista:block/tv/side/top",
+    "up": "vista:block/tv/top/left"
+  }
+}

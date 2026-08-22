@@ -1,0 +1,51 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:block": {
+    "description": {
+      "identifier": "vista:tv",
+      "menu_category": { "category": "items" },
+      "states": {
+        "vista:on": [false, true],
+        "vista:channel": ["none","blue","red","green","yellow","purple","orange","cyan","pink","white","black","gray","lime","light_blue","magenta","hollow","picture_tape"]
+      }
+    },
+    "components": {
+      "minecraft:collision_box": { "origin": [-8, 0, -8], "size": [16, 12, 4] },
+      "minecraft:selection_box": { "origin": [-8, 0, -8], "size": [16, 12, 4] },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 1.5 },
+      "minecraft:destructible_by_explosion": { "explosion_resistance": 5 },
+      "minecraft:flammable": { "catch_chance_modifier": 5, "destroy_chance_modifier": 20 },
+      "minecraft:map_color": [50, 50, 60],
+      "minecraft:geometry": "geometry.tv",
+      "minecraft:material_instances": {
+        "north": { "texture": "tv_front", "render_method": "opaque" },
+        "south": { "texture": "tv_back", "render_method": "opaque" },
+        "east": { "texture": "tv_side", "render_method": "opaque" },
+        "west": { "texture": "tv_side", "render_method": "opaque" },
+        "up": { "texture": "tv_top", "render_method": "opaque" },
+        "down": { "texture": "tv_top", "render_method": "opaque" }
+      },
+      "minecraft:light_emission": { "light_level": 3 },
+      "minecraft:redstone": { "redstone_signal": true },
+      "minecraft:cardinal_direction": {},
+      "minecraft:on_player_placing": { "event": "vista:on_placed" },
+      "minecraft:on_player_destroyed": { "event": "vista:on_destroyed" },
+      "minecraft:on_interact": { "event": "vista:on_interact" }
+    },
+    "events": {
+      "vista:on_placed": {
+        "set_block_state": { "vista:on": false, "vista:channel": "none" }
+      },
+      "vista:on_destroyed": {},
+      "vista:on_interact": {}
+    },
+    "permutations": [
+      {
+        "condition": "query.block_state('vista:on') == true",
+        "components": {
+          "minecraft:light_emission": { "light_level": 10 }
+        }
+      }
+    ]
+  }
+}

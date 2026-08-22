@@ -1,0 +1,21 @@
+{
+  "block.vista.television": "テレビ",
+  "item.vista.cassette": "カセット",
+  "item.vista.hollow_cassette": "空のカセット",
+  "item.vista.picture_tape": "ビデオテープ",
+  "block.vista.viewfinder": "のぞき目",
+  "tooltip.vista.cassette.tape": "テープ: %s",
+  "tooltip.vista.hollow_cassette.linked": "[%1$s, %2$s, %3$s]に接続中",
+  "tooltip.vista.hollow_cassette.linked_unknown": "接続先が無効です",
+  "tooltip.vista.hollow_cassette.linked_away": "%sのどこかに接続されています",
+  "cassette_tape.vista.block_wave.tooltip": "Plantkillable - Block Wave",
+  "cassette_tape.vista.mc98.tooltip": "Plantkillable - Mc 98",
+  "cassette_tape.vista.space_sniffer.tooltip": "Plantkillable - Space Sniffer",
+  "cassette_tape.vista.bounce.tooltip": "MehVahdJukaar - Bounce",
+  "cassette_tape.vista.67.tooltip": "MehVahdJukaar - 67",
+  "cassette_tape.vista.mc_98.tooltip": "Plantkillable - Mc 98",
+  "subtitles.vista.television.eject": "カセットが取り出された",
+  "subtitles.vista.television.insert": "カセットが挿入された",
+  "message.vista.viewfinder.control": "%1$sで降りる、%2$sでロック/解除",
+  "tag.vista.vista.cassette_tape.supporter_tapes": "Supporter Tapes"
+}

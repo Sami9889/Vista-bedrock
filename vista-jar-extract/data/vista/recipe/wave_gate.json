@@ -1,0 +1,34 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "vista:flag",
+      "flag": "wave_gate"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "vista:flag",
+      "flag": "wave_gate"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "212",
+    "101"
+  ],
+  "key": {
+    "0": {
+      "tag": "minecraft:planks"
+    },
+    "1": {
+      "item": "minecraft:obsidian"
+    },
+    "2": {
+      "item": "minecraft:end_rod"
+    }
+  },
+  "result": {
+    "id": "vista:wave_gate",
+    "count": 1
+  }
+}
