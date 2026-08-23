@@ -4,16 +4,34 @@
     "description": {
       "identifier": "vista:craft_television",
       "group": "vista",
-      "show_notification": true
+      "show_notification": true,
+      "version": "1.0.0"
     },
-    "tags": ["crafting_table"],
-    "pattern": ["200", "213", "200"],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "200",
+      "213",
+      "200"
+    ],
     "key": {
-      "0": { "tag": "minecraft:planks" },
-      "1": { "item": "minecraft:diamond" },
-      "2": { "item": "minecraft:tinted_glass" },
-      "3": { "item": "minecraft:redstone" }
+      "0": {
+        "tag": "minecraft:planks"
+      },
+      "1": {
+        "item": "minecraft:diamond"
+      },
+      "2": {
+        "item": "minecraft:tinted_glass"
+      },
+      "3": {
+        "item": "minecraft:redstone"
+      }
     },
-    "result": { "item": "vista:tv", "count": 1 }
+    "result": {
+      "item": "vista:tv",
+      "count": 1
+    }
   }
 }

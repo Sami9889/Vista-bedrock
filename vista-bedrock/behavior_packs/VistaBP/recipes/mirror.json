@@ -4,14 +4,28 @@
     "description": {
       "identifier": "vista:craft_mirror",
       "group": "vista",
-      "show_notification": true
+      "show_notification": true,
+      "version": "1.0.0"
     },
-    "tags": ["crafting_table"],
-    "pattern": ["GGG", "GCG", "GGG"],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "GGG",
+      "GCG",
+      "GGG"
+    ],
     "key": {
-      "G": { "item": "minecraft:glass" },
-      "C": { "item": "vista:crystalline" }
+      "G": {
+        "item": "minecraft:glass"
+      },
+      "C": {
+        "item": "vista:crystalline"
+      }
     },
-    "result": { "item": "vista:mirror", "count": 1 }
+    "result": {
+      "item": "vista:mirror",
+      "count": 1
+    }
   }
 }
