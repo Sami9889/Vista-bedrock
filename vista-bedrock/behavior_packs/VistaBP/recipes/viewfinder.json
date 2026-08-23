@@ -4,15 +4,31 @@
     "description": {
       "identifier": "vista:craft_viewfinder",
       "group": "vista",
-      "show_notification": true
+      "show_notification": true,
+      "version": "1.0.0"
     },
-    "tags": ["crafting_table"],
-    "pattern": ["111", "121", "000"],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "111",
+      "121",
+      "000"
+    ],
     "key": {
-      "0": { "tag": "minecraft:planks" },
-      "1": { "item": "minecraft:iron_ingot" },
-      "2": { "item": "minecraft:spyglass" }
+      "0": {
+        "tag": "minecraft:planks"
+      },
+      "1": {
+        "item": "minecraft:iron_ingot"
+      },
+      "2": {
+        "item": "minecraft:spyglass"
+      }
     },
-    "result": { "item": "vista:viewfinder", "count": 1 }
+    "result": {
+      "item": "vista:viewfinder",
+      "count": 1
+    }
   }
 }

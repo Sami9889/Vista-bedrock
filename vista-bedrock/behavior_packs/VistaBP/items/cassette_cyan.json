@@ -4,7 +4,8 @@
     "description": {
       "identifier": "vista:cassette_cyan",
       "menu_category": {
-        "category": "items"
+        "category": "items",
+        "group": "itemGroup.name.vista"
       }
     },
     "components": {
@@ -19,10 +20,6 @@
       },
       "minecraft:hand_equipped": true,
       "minecraft:max_stack_size": 1,
-      "minecraft:creative_category": {
-        "category": "items",
-        "group": "itemGroup.name.vista"
-      },
       "minecraft:animation_controllers": [
         "controller.animation.vista.cassette_cyan"
       ]

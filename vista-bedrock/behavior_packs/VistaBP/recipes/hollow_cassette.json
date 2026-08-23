@@ -4,13 +4,23 @@
     "description": {
       "identifier": "vista:craft_hollow_cassette",
       "group": "vista",
-      "show_notification": true
+      "show_notification": true,
+      "version": "1.0.0"
     },
-    "tags": ["crafting_table"],
-    "ingredients": [
-      { "item": "vista:cassette_blue" },
-      { "item": "minecraft:echo_shard" }
+    "tags": [
+      "crafting_table"
     ],
-    "result": { "item": "vista:hollow_cassette", "count": 1 }
+    "ingredients": [
+      {
+        "item": "vista:cassette_blue"
+      },
+      {
+        "item": "minecraft:echo_shard"
+      }
+    ],
+    "result": {
+      "item": "vista:hollow_cassette",
+      "count": 1
+    }
   }
 }

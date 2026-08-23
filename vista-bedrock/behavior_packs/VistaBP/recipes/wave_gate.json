@@ -4,15 +4,30 @@
     "description": {
       "identifier": "vista:craft_wave_gate",
       "group": "vista",
-      "show_notification": true
+      "show_notification": true,
+      "version": "1.0.0"
     },
-    "tags": ["crafting_table"],
-    "pattern": ["212", "101"],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "212",
+      "101"
+    ],
     "key": {
-      "0": { "tag": "minecraft:planks" },
-      "1": { "item": "minecraft:obsidian" },
-      "2": { "item": "minecraft:end_rod" }
+      "0": {
+        "tag": "minecraft:planks"
+      },
+      "1": {
+        "item": "minecraft:obsidian"
+      },
+      "2": {
+        "item": "minecraft:end_rod"
+      }
     },
-    "result": { "item": "vista:wave_gate", "count": 1 }
+    "result": {
+      "item": "vista:wave_gate",
+      "count": 1
+    }
   }
 }

@@ -3,15 +3,23 @@
   "minecraft:item": {
     "description": {
       "identifier": "vista:hollow_cassette",
-      "menu_category": { "category": "items" }
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.vista"
+      }
     },
     "components": {
-      "minecraft:icon": { "texture": "hollow_cassette" },
-      "minecraft:model": { "model": "vista:geometry.hollow_cassette" },
-      "minecraft:display_name": { "value": "§8Hollow Cassette" },
+      "minecraft:icon": {
+        "texture": "hollow_cassette"
+      },
+      "minecraft:model": {
+        "model": "vista:geometry.hollow_cassette"
+      },
+      "minecraft:display_name": {
+        "value": "\u00a78Hollow Cassette"
+      },
       "minecraft:hand_equipped": true,
-      "minecraft:max_stack_size": 1,
-      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+      "minecraft:max_stack_size": 1
     }
   }
 }

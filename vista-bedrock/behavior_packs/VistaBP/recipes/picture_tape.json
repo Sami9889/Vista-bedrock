@@ -4,14 +4,28 @@
     "description": {
       "identifier": "vista:craft_picture_tape",
       "group": "vista",
-      "show_notification": true
+      "show_notification": true,
+      "version": "1.0.0"
     },
-    "tags": ["crafting_table"],
-    "pattern": ["DDD", "DID", "DDD"],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DDD",
+      "DID",
+      "DDD"
+    ],
     "key": {
-      "D": { "item": "minecraft:dried_kelp" },
-      "I": { "item": "minecraft:iron_ingot" }
+      "D": {
+        "item": "minecraft:dried_kelp"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
     },
-    "result": { "item": "vista:picture_tape", "count": 1 }
+    "result": {
+      "item": "vista:picture_tape",
+      "count": 1
+    }
   }
 }

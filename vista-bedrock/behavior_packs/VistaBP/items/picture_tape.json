@@ -3,15 +3,23 @@
   "minecraft:item": {
     "description": {
       "identifier": "vista:picture_tape",
-      "menu_category": { "category": "items" }
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.vista"
+      }
     },
     "components": {
-      "minecraft:icon": { "texture": "picture_tape" },
-      "minecraft:model": { "model": "vista:geometry.picture_tape" },
-      "minecraft:display_name": { "value": "§6Picture Tape" },
+      "minecraft:icon": {
+        "texture": "picture_tape"
+      },
+      "minecraft:model": {
+        "model": "vista:geometry.picture_tape"
+      },
+      "minecraft:display_name": {
+        "value": "\u00a76Picture Tape"
+      },
       "minecraft:hand_equipped": true,
-      "minecraft:max_stack_size": 1,
-      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+      "minecraft:max_stack_size": 1
     }
   }
 }
