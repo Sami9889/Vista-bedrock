@@ -1,0 +1,14 @@
+{
+  "format_version": "1.26.40",
+  "animation_controllers": {
+    "controller.animation.vista.cassette_green": {
+      "states": {
+        "default": {
+          "animations": [
+            "animation.vista.cassette_green_loop"
+          ]
+        }
+      }
+    }
+  }
+}
