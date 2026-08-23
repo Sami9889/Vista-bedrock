@@ -3,15 +3,29 @@
   "minecraft:item": {
     "description": {
       "identifier": "vista:cassette_black",
-      "menu_category": { "category": "items" }
+      "menu_category": {
+        "category": "items"
+      }
     },
     "components": {
-      "minecraft:icon": { "texture": "cassette_black" },
-      "minecraft:model": { "model": "vista:geometry.cassette_black" },
-      "minecraft:display_name": { "value": "§8Black Cassette" },
+      "minecraft:icon": {
+        "texture": "cassette_black"
+      },
+      "minecraft:model": {
+        "model": "vista:geometry.cassette_black"
+      },
+      "minecraft:display_name": {
+        "value": "\u00a78Black Cassette"
+      },
       "minecraft:hand_equipped": true,
       "minecraft:max_stack_size": 1,
-      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+      "minecraft:creative_category": {
+        "category": "items",
+        "group": "itemGroup.name.vista"
+      },
+      "minecraft:animation_controllers": [
+        "controller.animation.vista.cassette_black"
+      ]
     }
   }
 }
