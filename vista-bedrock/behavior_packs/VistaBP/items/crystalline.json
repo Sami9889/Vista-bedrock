@@ -3,7 +3,10 @@
   "minecraft:item": {
     "description": {
       "identifier": "vista:crystalline",
-      "category": "items"
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.vista"
+      }
     },
     "components": {
       "minecraft:icon": {
@@ -14,10 +17,6 @@
       },
       "minecraft:display_name": {
         "value": "\u00a7bCrystalline"
-      },
-      "minecraft:creative_category": {
-        "category": "items",
-        "group": "itemGroup.name.vista"
       },
       "minecraft:hand_equipped": true
     }
