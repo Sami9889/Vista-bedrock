@@ -3,9 +3,7 @@
   "minecraft:item": {
     "description": {
       "identifier": "vista:cassette_light_blue",
-      "menu_category": {
-        "category": "items"
-      }
+      "category": "items"
     },
     "components": {
       "minecraft:icon": {

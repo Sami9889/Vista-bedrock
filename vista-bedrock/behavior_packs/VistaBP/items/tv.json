@@ -3,14 +3,25 @@
   "minecraft:item": {
     "description": {
       "identifier": "vista:tv",
-      "menu_category": { "category": "items" }
+      "category": "items"
     },
     "components": {
-      "minecraft:icon": { "texture": "tv" },
-      "minecraft:model": { "model": "vista:geometry.tv_item" },
-      "minecraft:display_name": { "value": "§7Television" },
-      "minecraft:block_placer": { "block": "vista:tv" },
-      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+      "minecraft:icon": {
+        "texture": "tv"
+      },
+      "minecraft:model": {
+        "model": "vista:geometry.tv_item"
+      },
+      "minecraft:display_name": {
+        "value": "\u00a77Television"
+      },
+      "minecraft:block_placer": {
+        "block": "vista:tv"
+      },
+      "minecraft:creative_category": {
+        "category": "items",
+        "group": "itemGroup.name.vista"
+      }
     }
   }
 }
