@@ -1,13 +1,34 @@
 {
   "parent": "minecraft:block/cube",
   "elements": [
-    {   "from": [ 0, 0, 0 ],
-      "to": [ 16, 16, 16 ],
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
       "faces": {
-        "down":  { "texture": "#down", "cullface": "down" },
-        "north": { "texture": "#north", "cullface": "north" },
-        "south": { "texture": "#south", "cullface": "south" },
-        "west":  { "texture": "#west", "cullface": "west" }
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        }
       }
     }
   ],
@@ -17,5 +38,10 @@
     "south": "vista:block/tv/back/bottom_left",
     "west": "vista:block/tv/side/bottom",
     "down": "vista:block/tv/top/middle"
+  },
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.television_bottom_right"
+    }
   }
 }

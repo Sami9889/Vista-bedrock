@@ -43,5 +43,10 @@
     "up": "vista:block/tv/top/right",
     "down": "vista:block/tv/top/left",
     "east": "vista:block/tv/side/default"
+  },
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.television_h_left"
+    }
   }
 }

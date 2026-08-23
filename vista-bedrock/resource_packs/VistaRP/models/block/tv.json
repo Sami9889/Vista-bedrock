@@ -14,13 +14,13 @@
           {
             "origin": [-8, 0, -8],
             "size": [16, 12, 4],
-            "uv": {
-              "north": {"uv": [0, 0, 16, 12], "texture": "tv"},
-              "south": {"uv": [0, 0, 16, 12], "texture": "tv"},
-              "east": {"uv": [0, 0, 4, 12], "texture": "tv"},
-              "west": {"uv": [0, 0, 4, 12], "texture": "tv"},
-              "up": {"uv": [0, 0, 16, 4], "texture": "tv"},
-              "down": {"uv": [0, 0, 16, 4], "texture": "tv"}
+             "uv": {
+              "north": {"uv": [0, 0, 16, 12], "texture": "tv_front"},
+              "south": {"uv": [0, 0, 16, 12], "texture": "tv_back"},
+              "east": {"uv": [0, 0, 4, 12], "texture": "tv_side"},
+              "west": {"uv": [0, 0, 4, 12], "texture": "tv_side"},
+              "up": {"uv": [0, 0, 16, 4], "texture": "tv_top"},
+              "down": {"uv": [0, 0, 16, 4], "texture": "tv_top"}
             }
           }
         ]

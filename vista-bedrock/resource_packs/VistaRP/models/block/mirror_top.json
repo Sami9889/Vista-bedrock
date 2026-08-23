@@ -36,5 +36,10 @@
         }
       }
     }
-  ]
+  ],
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.mirror_top"
+    }
+  }
 }

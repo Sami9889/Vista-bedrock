@@ -38,5 +38,10 @@
     "south": "vista:block/tv/back/v_middle",
     "east": "vista:block/tv/side/middle",
     "west": "vista:block/tv/side/middle"
+  },
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.television_v_middle"
+    }
   }
 }

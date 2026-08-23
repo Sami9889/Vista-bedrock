@@ -2,5 +2,10 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "vista:item/music_disc_sojourn"
+  },
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.music_disc_sojourn"
+    }
   }
 }

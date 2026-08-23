@@ -14,9 +14,9 @@
           {
             "origin": [-8, 0, -1],
             "size": [16, 16, 2],
-            "uv": {
-              "north": {"uv": [0, 0, 16, 16], "texture": "mirror"},
-              "south": {"uv": [0, 0, 16, 16], "texture": "mirror"},
+             "uv": {
+              "north": {"uv": [0, 0, 16, 16], "texture": "mirror_front"},
+              "south": {"uv": [0, 0, 16, 16], "texture": "mirror_back"},
               "east": {"uv": [0, 0, 2, 16], "texture": "mirror"},
               "west": {"uv": [0, 0, 2, 16], "texture": "mirror"},
               "up": {"uv": [0, 0, 16, 2], "texture": "mirror"},
