@@ -25,11 +25,9 @@
         "up": { "texture": "tv_top", "render_method": "opaque" },
         "down": { "texture": "tv_top", "render_method": "opaque" }
       },
-      "minecraft:light_emission": { "light_level": 3 },
+      "minecraft:light_emission": 3,
       "minecraft:redstone": { "redstone_signal": true },
       "minecraft:cardinal_direction": {},
-      "minecraft:on_player_placing": { "event": "vista:on_placed" },
-      "minecraft:on_player_destroyed": { "event": "vista:on_destroyed" },
       "minecraft:on_interact": { "event": "vista:on_interact" }
     },
     "events": {
@@ -42,9 +40,9 @@
     "permutations": [
       {
         "condition": "query.block_state('on') == true",
-        "components": {
-          "minecraft:light_emission": { "light_level": 10 }
-        }
+          "components": {
+            "minecraft:light_emission": 10
+          }
       }
     ]
   }
