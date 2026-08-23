@@ -13,7 +13,6 @@
     "mirror_back": { "textures": "textures/blocks/mirror/back/default" },
     "wave_gate": { "textures": "textures/blocks/wave_gate/side" },
     "wave_gate_top": { "textures": "textures/blocks/wave_gate/top" },
-    "crystalline": { "textures": "textures/blocks/crystalline" },
-    "camera_block": { "textures": "textures/blocks/camera_block" }
+    "crystalline": { "textures": "textures/blocks/crystalline" }
   }
 }
