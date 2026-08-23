@@ -10,7 +10,7 @@
       "minecraft:selection_box": { "origin": [-8, 0, -8], "size": [16, 16, 16] },
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 3 },
       "minecraft:map_color": [102, 179, 255],
-      "minecraft:light_emission": { "light_level": 8 },
+      "minecraft:light_emission": 8,
       "minecraft:material_instances": {
         "*": { "texture": "crystalline", "render_method": "alpha_test", "ambient_occlusion": false }
       }

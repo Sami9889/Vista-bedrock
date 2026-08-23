@@ -1,0 +1,15 @@
+{
+  "format_version": "1.26.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "vista:tv",
+      "menu_category": { "category": "items" }
+    },
+    "components": {
+      "minecraft:icon": { "texture": "tv" },
+      "minecraft:display_name": { "value": "§7Television" },
+      "minecraft:block_placer": { "block": "vista:tv" },
+      "minecraft:creative_category": { "category": "items", "group": "itemGroup.name.vista" }
+    }
+  }
+}

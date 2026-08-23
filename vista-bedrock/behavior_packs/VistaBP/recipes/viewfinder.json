@@ -3,7 +3,8 @@
   "minecraft:recipe_shaped": {
     "description": {
       "identifier": "vista:craft_viewfinder",
-      "group": "vista"
+      "group": "vista",
+      "show_notification": true
     },
     "tags": ["crafting_table"],
     "pattern": ["111", "121", "000"],

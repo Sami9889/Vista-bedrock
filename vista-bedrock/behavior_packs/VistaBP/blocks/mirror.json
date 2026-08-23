@@ -19,7 +19,6 @@
         "up": { "texture": "mirror", "render_method": "opaque" },
         "down": { "texture": "mirror", "render_method": "opaque" }
       },
-      "minecraft:on_player_placing": { "event": "vista:mirror_placed" },
       "minecraft:cardinal_direction": {}
     },
     "events": {

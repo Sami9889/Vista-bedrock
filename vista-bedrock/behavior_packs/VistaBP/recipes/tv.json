@@ -3,7 +3,8 @@
   "minecraft:recipe_shaped": {
     "description": {
       "identifier": "vista:craft_television",
-      "group": "vista"
+      "group": "vista",
+      "show_notification": true
     },
     "tags": ["crafting_table"],
     "pattern": ["212", "213", "200"],

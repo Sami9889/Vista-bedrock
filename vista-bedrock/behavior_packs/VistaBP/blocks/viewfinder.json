@@ -5,7 +5,7 @@
       "identifier": "vista:viewfinder",
       "menu_category": { "category": "items" },
       "states": {
-        "vista:locked": [false, true]
+        "locked": [false, true]
       }
     },
     "components": {
@@ -23,8 +23,6 @@
         "up": { "texture": "viewfinder", "render_method": "opaque" },
         "down": { "texture": "viewfinder", "render_method": "opaque" }
       },
-      "minecraft:on_player_placing": { "event": "vista:viewfinder_placed" },
-      "minecraft:on_player_destroyed": { "event": "vista:viewfinder_destroyed" },
       "minecraft:on_interact": { "event": "vista:viewfinder_interact" },
       "minecraft:cardinal_direction": {}
     },

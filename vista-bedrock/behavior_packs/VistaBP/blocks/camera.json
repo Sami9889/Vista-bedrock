@@ -19,7 +19,7 @@
         "up": { "texture": "camera_item", "render_method": "opaque" },
         "down": { "texture": "camera_item", "render_method": "opaque" }
       },
-      "minecraft:on_player_placing": { "event": "vista:camera_placed" }
+      "minecraft:block_placer": { "block": "vista:camera" }
     },
     "events": {
       "vista:camera_placed": {}
