@@ -3,7 +3,6 @@
   "vista:group": {
     "group_items": [
       { "name": "vista:tv", "icon": "tv" },
-      { "name": "vista:tv_base", "icon": "tv_base" },
       { "name": "vista:viewfinder", "icon": "viewfinder" },
       { "name": "vista:mirror", "icon": "mirror" },
       { "name": "vista:wave_gate", "icon": "wave_gate" },

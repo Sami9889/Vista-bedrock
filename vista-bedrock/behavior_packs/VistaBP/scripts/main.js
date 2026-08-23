@@ -505,7 +505,7 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
   }
   if (totalSize >= 8) {
     try {
-      player.runCommand("advancement grant @s only vista:absolute_cinema");
+      player.runCommand("function vista:on_absolute_cinema");
     } catch(e) {}
   }
 });
