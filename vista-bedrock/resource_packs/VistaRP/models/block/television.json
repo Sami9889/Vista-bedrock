@@ -8,5 +8,10 @@
     "west": "vista:block/tv/side/default",
     "down": "vista:block/tv/top/default",
     "up": "vista:block/tv/top/default"
+  },
+  "minecraft:geometry": {
+    "description": {
+      "identifier": "vista:geometry.television"
+    }
   }
 }

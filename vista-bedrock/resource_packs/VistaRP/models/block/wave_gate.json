@@ -14,13 +14,13 @@
           {
             "origin": [-8, 0, -8],
             "size": [16, 10, 16],
-            "uv": {
+             "uv": {
               "north": {"uv": [0, 0, 16, 10], "texture": "wave_gate"},
               "south": {"uv": [0, 0, 16, 10], "texture": "wave_gate"},
               "east": {"uv": [0, 0, 16, 10], "texture": "wave_gate"},
               "west": {"uv": [0, 0, 16, 10], "texture": "wave_gate"},
-              "up": {"uv": [0, 0, 16, 16], "texture": "wave_gate"},
-              "down": {"uv": [0, 0, 16, 16], "texture": "wave_gate"}
+              "up": {"uv": [0, 0, 16, 16], "texture": "wave_gate_top"},
+              "down": {"uv": [0, 0, 16, 16], "texture": "wave_gate_top"}
             }
           }
         ]
