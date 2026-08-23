@@ -5,7 +5,7 @@
       "identifier": "vista:wave_gate",
       "menu_category": { "category": "items" },
       "states": {
-        "vista:has_url": [false, true]
+        "has_url": [false, true]
       }
     },
     "components": {
@@ -23,9 +23,7 @@
         "up": { "texture": "wave_gate_top", "render_method": "opaque" },
         "down": { "texture": "wave_gate_top", "render_method": "opaque" }
       },
-      "minecraft:light_emission": { "light_level": 5 },
-      "minecraft:on_player_placing": { "event": "vista:wave_gate_placed" },
-      "minecraft:on_player_destroyed": { "event": "vista:wave_gate_destroyed" },
+      "minecraft:light_emission": 5,
       "minecraft:on_interact": { "event": "vista:wave_gate_interact" },
       "minecraft:cardinal_direction": {}
     },
@@ -36,7 +34,7 @@
     },
     "permutations": [
       {
-        "condition": "query.block_state('vista:has_url') == true",
+        "condition": "query.block_state('has_url') == true",
         "components": {
           "minecraft:material_instances": {
             "*": { "texture": "wave_gate", "render_method": "opaque" }

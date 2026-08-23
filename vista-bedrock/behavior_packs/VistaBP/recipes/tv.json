@@ -3,10 +3,11 @@
   "minecraft:recipe_shaped": {
     "description": {
       "identifier": "vista:craft_television",
-      "group": "vista"
+      "group": "vista",
+      "show_notification": true
     },
     "tags": ["crafting_table"],
-    "pattern": ["212", "213", "200"],
+    "pattern": ["200", "213", "200"],
     "key": {
       "0": { "tag": "minecraft:planks" },
       "1": { "item": "minecraft:diamond" },

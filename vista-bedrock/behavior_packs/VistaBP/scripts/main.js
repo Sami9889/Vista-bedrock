@@ -174,8 +174,8 @@ function handleTVInteraction(player, block) {
       state.channel = "hollow";
       state.playing = true;
       state.tape = null;
-      setBlockState(block, "vista:on", true);
-      setBlockState(block, "vista:channel", "hollow");
+      setBlockState(block, "on", true);
+      setBlockState(block, "channel", "hollow");
       spawnCameraEntity(block);
       player.sendMessage("§7Hollow cassette bound! Showing live viewfinder feed.");
       player.runCommand("playsound block.television.insert @s ~~~ 1.0 1.0");
@@ -186,8 +186,8 @@ function handleTVInteraction(player, block) {
       state.playing = true;
       state.tape = tape;
       state.animTick = 0;
-      setBlockState(block, "vista:on", true);
-      setBlockState(block, "vista:channel", ch);
+      setBlockState(block, "on", true);
+      setBlockState(block, "channel", ch);
       const tapeName = TAPE_NAMES[tape.id] || tape.id;
       player.sendMessage(`§7Now playing: ${getChannelColor(ch)}${tapeName} §7(${tape.asset})`);
       player.runCommand("playsound block.television.insert @s ~~~ 1.0 1.0");
@@ -198,8 +198,8 @@ function handleTVInteraction(player, block) {
     state.channel = "picture_tape";
     state.playing = true;
     state.tape = null;
-    setBlockState(block, "vista:on", true);
-    setBlockState(block, "vista:channel", "picture_tape");
+    setBlockState(block, "on", true);
+    setBlockState(block, "channel", "picture_tape");
     PT_STATE.set(key, { pictures: [] });
     player.sendMessage("§6Picture Tape inserted! Right-click it to add map images.");
     player.runCommand("playsound block.television.insert @s ~~~ 1.0 1.0");
@@ -505,7 +505,7 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
   }
   if (totalSize >= 8) {
     try {
-      player.runCommand("advancement grant @s only vista:absolute_cinema");
+      player.runCommand("function vista:on_absolute_cinema");
     } catch(e) {}
   }
 });

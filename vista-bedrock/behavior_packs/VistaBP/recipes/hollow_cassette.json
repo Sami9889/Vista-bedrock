@@ -3,7 +3,8 @@
   "minecraft:recipe_shapeless": {
     "description": {
       "identifier": "vista:craft_hollow_cassette",
-      "group": "vista"
+      "group": "vista",
+      "show_notification": true
     },
     "tags": ["crafting_table"],
     "ingredients": [
