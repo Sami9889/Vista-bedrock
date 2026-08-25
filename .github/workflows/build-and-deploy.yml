@@ -1,0 +1,174 @@
+name: Build and Deploy Vista Bedrock Addon
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Validate JSON files
+        run: |
+          python3 -c "
+          import json, glob, os, sys
+          errors = []
+          for f in glob.glob('vista-bedrock/**/*.json', recursive=True):
+              try:
+                  with open(f) as fh:
+                      json.load(fh)
+              except Exception as e:
+                  errors.append(f'{f}: {e}')
+          if errors:
+              for e in errors:
+                  print(f'ERROR: {e}')
+              sys.exit(1)
+          print(f'All {len(glob.glob(\"vista-bedrock/**/*.json\", recursive=True))} JSON files valid')
+          "
+      
+      - name: Validate textures exist
+        run: |
+          python3 -c "
+          import json, glob, os, sys
+          errors = []
+          with open('vista-bedrock/resource_packs/VistaRP/textures/item_texture.json') as f:
+              item_atlas = json.load(f)
+          for name, entry in item_atlas.get('texture_data', {}).items():
+              tex_path = entry.get('textures', '')
+              if tex_path and not os.path.exists(f'vista-bedrock/resource_packs/VistaRP/{tex_path}.png'):
+                  errors.append(f'Item texture missing: {name}')
+          with open('vista-bedrock/resource_packs/VistaRP/textures/terrain_texture.json') as f:
+              block_atlas = json.load(f)
+          for name, entry in block_atlas.get('texture_data', {}).items():
+              tex_path = entry.get('textures', '')
+              if tex_path and not os.path.exists(f'vista-bedrock/resource_packs/VistaRP/{tex_path}.png'):
+                  errors.append(f'Block texture missing: {name}')
+          if errors:
+              for e in errors:
+                  print(f'ERROR: {e}')
+              sys.exit(1)
+          print('All textures verified')
+          "
+      
+      - name: Package addon
+        run: |
+          python3 -c "
+          import zipfile, os
+          with zipfile.ZipFile('vista.mcaddon', 'w', zipfile.ZIP_DEFLATED) as zf:
+              for root, dirs, files in os.walk('vista-bedrock'):
+                  for file in files:
+                      file_path = os.path.join(root, file)
+                      arcname = os.path.relpath(file_path, 'vista-bedrock')
+                      zf.write(file_path, arcname)
+          print(f'Packaged vista.mcaddon')
+          "
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vista-mcaddon
+          path: vista.mcaddon
+          retention-days: 90
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vista-mcaddon
+          path: .
+      
+      - name: Prepare GitHub Pages deploy
+        run: |
+          mkdir -p docs
+          cp vista.mcaddon docs/
+          cat > docs/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Vista Bedrock Addon</title>
+            <meta charset="utf-8">
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; background: #1a1a2e; color: #eee; }
+              h1 { color: #00d4ff; }
+              a { color: #00d4ff; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .download { background: #16213e; padding: 20px; border-radius: 8px; margin: 20px 0; }
+              .debug { background: #0f3460; padding: 15px; border-radius: 8px; margin: 10px 0; }
+              code { background: #0f3460; padding: 2px 8px; border-radius: 4px; }
+            </style>
+          </head>
+          <body>
+            <h1>📺 Vista Bedrock Addon</h1>
+            <p>Working Screens for Minecraft Bedrock Edition</p>
+            
+            <div class="download">
+              <h2>Download</h2>
+              <p><a href="vista.mcaddon" download>⬇️ Download vista.mcaddon</a></p>
+              <p>Version: latest | Size: ~5MB</p>
+            </div>
+            
+            <div class="debug">
+              <h2>Script Debugger</h2>
+              <p>Enable experiments in your world:</p>
+              <ul>
+                <li><strong>Beta APIs</strong></li>
+                <li><strong>Script Debugger</strong></li>
+              </ul>
+              <p>Connect debugger:</p>
+              <p><code>/script debugger vista.sami-s.dev</code></p>
+              <p>Or use VS Code with the Minecraft Bedrock Debugger extension and <code>launch.json</code>.</p>
+            </div>
+            
+            <div class="debug">
+              <h2>Installation</h2>
+              <ol>
+                <li>Download <code>vista.mcaddon</code></li>
+                <li>Double-click to open in Minecraft Bedrock</li>
+                <li>Enable in world templates or apply to existing world</li>
+                <li>Use <code>/script debugger vista.sami-s.dev</code> for camera debugging</li>
+              </ol>
+            </div>
+            
+            <footer>
+              <p>Vista Bedrock Addon | <a href="https://github.com/Sami9889/Vista-bedrock">View on GitHub</a></p>
+            </footer>
+          </body>
+          </html>
+          EOF
+          echo "Prepared GitHub Pages site"
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+        continue-on-error: false
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ Addon validated and packaged successfully. Download `vista.mcaddon` from the GitHub Pages site when deployed to main.'
+            })
