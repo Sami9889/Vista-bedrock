@@ -3,7 +3,6 @@
   "animations": {
     "animation.vista.cassette_default_loop": {
       "loop": true,
-      "duration": 4,
       "bones": {
         "cassette": {
           "rotation": {

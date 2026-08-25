@@ -673,65 +673,30 @@ globalThis.__vista_camera_state = {
   }
 };
 
-world.afterEvents.serverEvent.subscribe(e => {
-  if (e.eventName === "vista:debug_camera") {
-    const { cameraKey, action } = e.data || {};
-    const player = e.sender;
-    
-    if (action === "switch" && cameraKey) {
-      const success = globalThis.__vista_camera_state.switchToCamera(cameraKey, player);
-      player.sendMessage(success 
-        ? `§7Switched to camera: §e${cameraKey}` 
-        : `§cCamera not found: ${cameraKey}`);
-    } else if (action === "list") {
-      const state = globalThis.__vista_camera_state.getState();
-      player.sendMessage(`§7Active cameras: ${state.cameras.length}`);
-      state.cameras.forEach((cam, i) => {
-        const status = cam.key === state.activeCamera ? "§a[ACTIVE]" : "§7";
-        player.sendMessage(`§7  ${i}: ${status}${cam.key} §8(${cam.boundChannel || "unbound"})`);
-      });
-    } else if (action === "reset") {
-      globalThis.__vista_camera_state.resetPlayer(player);
-      player.sendMessage("§7Camera view reset.");
-    }
-  }
-});
+// Debug commands via chat/tellraw instead of serverEvent
+// Bedrock doesn't have world.afterEvents.serverEvent
 
 world.afterEvents.playerLeave.subscribe(e => {
   globalThis.__vista_camera_state.resetPlayer(e.player.id);
 });
 
-// Simple YAML config loader (Bedrock-compatible)
-function loadVistaConfig() {
-  try {
-    const configPath = "vista-bedrock/behavior_packs/VistaBP/scripts/vista_config.yaml";
-    // Config is embedded here since Bedrock can't read files at runtime
-    // In production, this would be loaded from a script API file reader
-    return {
-      camera: {
-        switch_interval: 100,
-        height_offset: 6,
-        tv_display_height: 1.5,
-        mirror_display_offset: 0.01,
-        debug: true,
-        max_cameras: 16,
-        debugger_integration: true
-      },
-      wave_gate: {
-        quality: "medium",
-        hardware_acceleration: true
-      },
-      cassettes: {
-        animate: true,
-        animation_speed: 1.0
-      }
-    };
-  } catch (e) {
-    return {};
+// Vista config (initialized early to avoid TDZ errors)
+const VISTA_CONFIG = {
+  camera: {
+    switch_interval: 100,
+    height_offset: 6,
+    tv_display_height: 1.5,
+    mirror_display_offset: 0.01,
+    debug: true,
+    max_cameras: 16,
+    debugger_integration: true
+  },
+  wave_gate: {
+    quality: "medium",
+    hardware_acceleration: true
+  },
+  cassettes: {
+    animate: true,
+    animation_speed: 1.0
   }
-}
-
-const VISTA_CONFIG = loadVistaConfig();
-if (VISTA_CONFIG.camera?.debug) {
-  world.sendMessage(`§7Vista config loaded: camera.switch_interval=${VISTA_CONFIG.camera.switch_interval}ms`);
-}
+};

@@ -3,7 +3,6 @@
   "animations": {
     "animation.vista.cassette_lime_loop": {
       "loop": true,
-      "duration": 3,
       "bones": {
         "cassette": {
           "rotation": {
