@@ -7,11 +7,19 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -84,8 +92,13 @@ jobs:
     needs: validate
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -280,21 +293,10 @@ jobs:
           echo "Prepared GitHub Pages site"
       
       - name: Deploy to GitHub Pages
+        id: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
           force_orphan: true
         continue-on-error: false
-      
-      - name: Comment on PR
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: '✅ Addon validated and packaged successfully. Download `vista.mcaddon` from the GitHub Pages site when deployed to main.'
-            })
