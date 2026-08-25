@@ -1,5 +1,5 @@
 {
-  "format_version": [1, 1, 0],
+  "format_version": 1,
   "vista:group": {
     "group_items": [
       { "name": "vista:tv", "icon": "tv" },
@@ -7,22 +7,10 @@
       { "name": "vista:mirror", "icon": "mirror" },
       { "name": "vista:wave_gate", "icon": "wave_gate" },
       { "name": "vista:crystalline", "icon": "crystalline" },
-      { "name": "vista:cassette_blue", "icon": "cassette_blue" },
-      { "name": "vista:cassette_red", "icon": "cassette_red" },
-      { "name": "vista:cassette_green", "icon": "cassette_green" },
-      { "name": "vista:cassette_yellow", "icon": "cassette_yellow" },
-      { "name": "vista:cassette_purple", "icon": "cassette_purple" },
-      { "name": "vista:cassette_orange", "icon": "cassette_orange" },
-      { "name": "vista:cassette_cyan", "icon": "cassette_cyan" },
-      { "name": "vista:cassette_pink", "icon": "cassette_pink" },
-      { "name": "vista:cassette_white", "icon": "cassette_white" },
-      { "name": "vista:cassette_black", "icon": "cassette_black" },
-      { "name": "vista:cassette_gray", "icon": "cassette_gray" },
-      { "name": "vista:cassette_lime", "icon": "cassette_lime" },
-      { "name": "vista:cassette_light_blue", "icon": "cassette_light_blue" },
-      { "name": "vista:cassette_magenta", "icon": "cassette_magenta" },
+      { "name": "vista:cassette", "icon": "cassette" },
       { "name": "vista:hollow_cassette", "icon": "hollow_cassette" },
-      { "name": "vista:picture_tape", "icon": "picture_tape" }
+      { "name": "vista:picture_tape", "icon": "picture_tape" },
+      { "name": "vista:music_disc_sojourn", "icon": "music_disc_sojourn" }
     ]
   }
 }

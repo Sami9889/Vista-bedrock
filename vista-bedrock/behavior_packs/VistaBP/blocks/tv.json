@@ -109,7 +109,8 @@
       },
       "minecraft:display_name": {
         "value": "\u00a77Television"
-      }
+      },
+      "minecraft:placement_direction": {}
     },
     "events": {
       "vista:on_placed": {
