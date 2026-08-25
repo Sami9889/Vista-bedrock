@@ -2,15 +2,77 @@
   "resource_pack_name": "VistaRP",
   "texture_name": "atlas.items",
   "texture_data": {
-    "cassette": { "textures": "textures/items/cassette" },
-    "cassette_overlay": { "textures": "textures/items/cassette_overlay" },
-    "hollow_cassette": { "textures": "textures/items/hollow_cassette" },
-    "picture_tape": { "textures": "textures/items/picture_tape" },
-    "viewfinder": { "textures": "textures/items/viewfinder" },
-    "mirror": { "textures": "textures/items/mirror" },
-    "crystalline": { "textures": "textures/items/crystaline" },
-    "music_disc_sojourn": { "textures": "textures/items/music_disc_sojourn" },
-    "tv": { "textures": "textures/blocks/tv/front/default" },
-    "wave_gate": { "textures": "textures/blocks/wave_gate/side" }
+    "cassette": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_overlay": {
+      "textures": "textures/items/cassette_overlay"
+    },
+    "hollow_cassette": {
+      "textures": "textures/items/hollow_cassette"
+    },
+    "picture_tape": {
+      "textures": "textures/items/picture_tape"
+    },
+    "viewfinder": {
+      "textures": "textures/items/viewfinder"
+    },
+    "mirror": {
+      "textures": "textures/items/mirror"
+    },
+    "crystalline": {
+      "textures": "textures/items/crystalline"
+    },
+    "music_disc_sojourn": {
+      "textures": "textures/items/music_disc_sojourn"
+    },
+    "tv": {
+      "textures": "textures/items/tv"
+    },
+    "wave_gate": {
+      "textures": "textures/items/wave_gate"
+    },
+    "cassette_black": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_blue": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_cyan": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_gray": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_green": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_light_blue": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_lime": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_magenta": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_orange": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_pink": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_purple": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_red": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_white": {
+      "textures": "textures/items/cassette"
+    },
+    "cassette_yellow": {
+      "textures": "textures/items/cassette"
+    }
   }
 }
