@@ -10,7 +10,7 @@
     },
     "components": {
       "minecraft:icon": {
-        "texture": "cassette"
+        "texture": "cassette_white"
       },
       "minecraft:model": {
         "model": "vista:geometry.cassette_white"
