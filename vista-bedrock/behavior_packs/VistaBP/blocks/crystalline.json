@@ -3,16 +3,54 @@
   "minecraft:block": {
     "description": {
       "identifier": "vista:crystalline",
-      "menu_category": { "category": "items" }
+      "menu_category": {
+        "category": "items"
+      }
     },
     "components": {
-      "minecraft:collision_box": { "origin": [-8, 0, -8], "size": [16, 16, 16] },
-      "minecraft:selection_box": { "origin": [-8, 0, -8], "size": [16, 16, 16] },
-      "minecraft:destructible_by_mining": { "seconds_to_destroy": 3 },
-      "minecraft:map_color": [102, 179, 255],
+      "minecraft:collision_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3
+      },
+      "minecraft:map_color": [
+        102,
+        179,
+        255
+      ],
       "minecraft:light_emission": 8,
       "minecraft:material_instances": {
-        "*": { "texture": "crystalline", "render_method": "alpha_test", "ambient_occlusion": false }
+        "*": {
+          "texture": "crystalline",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false
+        }
+      },
+      "minecraft:geometry": "geometry.crystalline",
+      "minecraft:display_name": {
+        "value": "\u00a77Crystalline"
       }
     }
   }
