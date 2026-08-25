@@ -45,7 +45,7 @@ jobs:
           "
       
       - name: Validate pack structure
-        run: python3 scripts/validate.py
+        run: python3 vista-bedrock/scripts/validate.py
       
       - name: Package addon
         run: |
