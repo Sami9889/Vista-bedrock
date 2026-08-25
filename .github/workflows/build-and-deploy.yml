@@ -44,29 +44,8 @@ jobs:
           print(f'All {len(glob.glob(\"vista-bedrock/**/*.json\", recursive=True))} JSON files valid')
           "
       
-      - name: Validate textures exist
-        run: |
-          python3 -c "
-          import json, glob, os, sys
-          errors = []
-          with open('vista-bedrock/resource_packs/VistaRP/textures/item_texture.json') as f:
-              item_atlas = json.load(f)
-          for name, entry in item_atlas.get('texture_data', {}).items():
-              tex_path = entry.get('textures', '')
-              if tex_path and not os.path.exists(f'vista-bedrock/resource_packs/VistaRP/{tex_path}.png'):
-                  errors.append(f'Item texture missing: {name}')
-          with open('vista-bedrock/resource_packs/VistaRP/textures/terrain_texture.json') as f:
-              block_atlas = json.load(f)
-          for name, entry in block_atlas.get('texture_data', {}).items():
-              tex_path = entry.get('textures', '')
-              if tex_path and not os.path.exists(f'vista-bedrock/resource_packs/VistaRP/{tex_path}.png'):
-                  errors.append(f'Block texture missing: {name}')
-          if errors:
-              for e in errors:
-                  print(f'ERROR: {e}')
-              sys.exit(1)
-          print('All textures verified')
-          "
+      - name: Validate pack structure
+        run: python3 scripts/validate.py
       
       - name: Package addon
         run: |
