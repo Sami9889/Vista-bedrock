@@ -1,0 +1,300 @@
+name: Build and Deploy Vista Bedrock Addon
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Validate JSON files
+        run: |
+          python3 -c "
+          import json, glob, os, sys
+          errors = []
+          for f in glob.glob('vista-bedrock/**/*.json', recursive=True):
+              try:
+                  with open(f) as fh:
+                      json.load(fh)
+              except Exception as e:
+                  errors.append(f'{f}: {e}')
+          if errors:
+              for e in errors:
+                  print(f'ERROR: {e}')
+              sys.exit(1)
+          print(f'All {len(glob.glob(\"vista-bedrock/**/*.json\", recursive=True))} JSON files valid')
+          "
+      
+      - name: Validate textures exist
+        run: |
+          python3 -c "
+          import json, glob, os, sys
+          errors = []
+          with open('vista-bedrock/resource_packs/VistaRP/textures/item_texture.json') as f:
+              item_atlas = json.load(f)
+          for name, entry in item_atlas.get('texture_data', {}).items():
+              tex_path = entry.get('textures', '')
+              if tex_path and not os.path.exists(f'vista-bedrock/resource_packs/VistaRP/{tex_path}.png'):
+                  errors.append(f'Item texture missing: {name}')
+          with open('vista-bedrock/resource_packs/VistaRP/textures/terrain_texture.json') as f:
+              block_atlas = json.load(f)
+          for name, entry in block_atlas.get('texture_data', {}).items():
+              tex_path = entry.get('textures', '')
+              if tex_path and not os.path.exists(f'vista-bedrock/resource_packs/VistaRP/{tex_path}.png'):
+                  errors.append(f'Block texture missing: {name}')
+          if errors:
+              for e in errors:
+                  print(f'ERROR: {e}')
+              sys.exit(1)
+          print('All textures verified')
+          "
+      
+      - name: Package addon
+        run: |
+          python3 -c "
+          import zipfile, os
+          with zipfile.ZipFile('vista.mcaddon', 'w', zipfile.ZIP_DEFLATED) as zf:
+              for root, dirs, files in os.walk('vista-bedrock'):
+                  for file in files:
+                      file_path = os.path.join(root, file)
+                      arcname = os.path.relpath(file_path, 'vista-bedrock')
+                      zf.write(file_path, arcname)
+          print(f'Packaged vista.mcaddon')
+          "
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vista-mcaddon
+          path: vista.mcaddon
+          retention-days: 90
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vista-mcaddon
+          path: .
+      
+      - name: Prepare GitHub Pages deploy
+        run: |
+          mkdir -p docs
+          cp vista.mcaddon docs/
+          cat > docs/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Vista Bedrock Addon</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { 
+                font-family: 'Segoe UI', system-ui, sans-serif; 
+                max-width: 900px; 
+                margin: 0 auto; 
+                padding: 20px;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                color: #eee;
+                min-height: 100vh;
+              }
+              h1 { 
+                color: #00d4ff; 
+                text-align: center;
+                margin-bottom: 10px;
+                font-size: 2.5em;
+              }
+              .subtitle {
+                text-align: center;
+                color: #888;
+                margin-bottom: 30px;
+              }
+              .card {
+                background: #0f3460;
+                border-radius: 12px;
+                padding: 24px;
+                margin-bottom: 20px;
+                border: 1px solid #1a1a2e;
+              }
+              .card h2 {
+                color: #00d4ff;
+                margin-bottom: 16px;
+                font-size: 1.3em;
+              }
+              a { 
+                color: #00d4ff; 
+                text-decoration: none;
+                font-weight: bold;
+              }
+              a:hover { text-decoration: underline; }
+              .download-btn {
+                display: inline-block;
+                background: #00d4ff;
+                color: #1a1a2e;
+                padding: 16px 32px;
+                border-radius: 8px;
+                font-size: 1.1em;
+                font-weight: bold;
+                text-decoration: none;
+                margin: 10px 0;
+              }
+              .download-btn:hover {
+                background: #00a8cc;
+                text-decoration: none;
+              }
+              code {
+                background: #1a1a2e;
+                padding: 4px 12px;
+                border-radius: 6px;
+                font-family: 'Courier New', monospace;
+                color: #00d4ff;
+              }
+              .debug-steps {
+                background: #16213e;
+                padding: 16px;
+                border-radius: 8px;
+                margin: 10px 0;
+              }
+              .debug-steps ol {
+                margin-left: 20px;
+              }
+              .debug-steps li {
+                margin: 8px 0;
+              }
+              .warning {
+                background: #2d1b0e;
+                border: 1px solid #b8860b;
+                color: #ffd700;
+                padding: 12px;
+                border-radius: 8px;
+                margin: 10px 0;
+              }
+              footer {
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #16213e;
+                color: #666;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>📺 Vista Bedrock Addon</h1>
+            <p class="subtitle">Working Screens for Minecraft Bedrock Edition</p>
+            
+            <div class="card">
+              <h2>⬇️ Download Addon</h2>
+              <p style="margin: 15px 0;">
+                <a href="vista.mcaddon" download class="download-btn">Download vista.mcaddon</a>
+              </p>
+              <p style="color: #888;">Version: latest | Size: ~5MB | Contains: BP + RP</p>
+            </div>
+            
+            <div class="card">
+              <h2>🎥 Script Debugger Setup</h2>
+              <p style="margin-bottom: 15px;">The script debugger allows you to debug camera/viewfinder/TV logic in real-time.</p>
+              
+              <div class="warning">
+                <strong>⚠️ Note:</strong> The script debugger requires a running debugger server. GitHub Pages hosts the addon download only.
+              </div>
+              
+              <div class="debug-steps">
+                <h3 style="color: #00d4ff; margin-bottom: 10px;">Option 1: VS Code Debugger (Recommended)</h3>
+                <ol>
+                  <li>Install <a href="https://marketplace.visualstudio.com/items?itemName=mojang-studios.minecraft-debugger" target="_blank">Minecraft Bedrock Debugger</a> extension</li>
+                  <li>Open the <code>vista-bedrock</code> folder in VS Code</li>
+                  <li>Use the provided <code>.vscode/launch.json</code></li>
+                  <li>Press F5 and connect from Minecraft</li>
+                </ol>
+              </div>
+              
+              <div class="debug-steps">
+                <h3 style="color: #00d4ff; margin-bottom: 10px;">Option 2: Dedicated Debugger Server</h3>
+                <ol>
+                  <li>Enable <strong>Beta APIs</strong> experiment in world settings</li>
+                  <li>Enable <strong>Script Debugger</strong> experiment in world settings</li>
+                  <li>Run the debugger server: <code>node scripts/debugger-server/server.js</code></li>
+                  <li>In Minecraft: <code>/script debugger connect</code></li>
+                  <li>Or connect to remote: <code>/script debugger vista.sami-s.dev:19144</code></li>
+                </ol>
+              </div>
+              
+              <div class="debug-steps">
+                <h3 style="color: #00d4ff; margin-bottom: 10px;">Option 3: Bedrock Dedicated Server</h3>
+                <ol>
+                  <li>In <code>server.properties</code>: <code>allow-outbound-script-debugging=true</code></li>
+                  <li>In BDS console: <code>/script debugger listen 19144</code></li>
+                  <li>In Minecraft: <code>/script debugger connect</code></li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="card">
+              <h2>📦 Installation</h2>
+              <div class="debug-steps">
+                <ol>
+                  <li>Download <code>vista.mcaddon</code> above</li>
+                  <li>Double-click to open in Minecraft Bedrock</li>
+                  <li>Enable in world templates or apply to existing world</li>
+                  <li>Place <code>vista:viewfinder</code> blocks to create cameras</li>
+                  <li>Use <code>/script debugger connect</code> for debugging</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="card">
+              <h2>🔧 Camera System</h2>
+              <p style="margin-bottom: 10px;">Bedrock only allows one active camera. The addon works around this by:</p>
+              <ul style="margin-left: 20px;">
+                <li>Tracking multiple viewfinder positions as virtual cameras</li>
+                <li>Using <code>globalThis.__vista_camera_state</code> for debugger access</li>
+                <li>Allowing debugger to switch between camera views</li>
+                <li>Displaying feeds on TVs and mirrors via script logic</li>
+              </ul>
+            </div>
+            
+            <footer>
+              <p>Vista Bedrock Addon | <a href="https://github.com/Sami9889/Vista-bedrock">View on GitHub</a></p>
+              <p style="margin-top: 10px; font-size: 0.9em;">Script Debugger Host: <code>vista.sami-s.dev:19144</code></p>
+            </footer>
+          </body>
+          </html>
+          EOF
+          echo "Prepared GitHub Pages site"
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+        continue-on-error: false
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ Addon validated and packaged successfully. Download `vista.mcaddon` from the GitHub Pages site when deployed to main.'
+            })
