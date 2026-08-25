@@ -292,11 +292,12 @@ jobs:
           EOF
           echo "Prepared GitHub Pages site"
       
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+      
       - name: Deploy to GitHub Pages
         id: deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          force_orphan: true
+        uses: actions/deploy-pages@v4
         continue-on-error: false
