@@ -83,7 +83,8 @@
       "minecraft:cardinal_direction": {},
       "minecraft:display_name": {
         "value": "\u00a77Viewfinder"
-      }
+      },
+      "minecraft:placement_direction": {}
     },
     "events": {
       "vista:viewfinder_placed": {},

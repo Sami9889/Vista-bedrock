@@ -71,7 +71,8 @@
       "minecraft:cardinal_direction": {},
       "minecraft:display_name": {
         "value": "\u00a77Mirror"
-      }
+      },
+      "minecraft:placement_direction": {}
     },
     "events": {
       "vista:mirror_placed": {}

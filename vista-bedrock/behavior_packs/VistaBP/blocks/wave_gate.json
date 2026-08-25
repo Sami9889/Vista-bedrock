@@ -84,7 +84,8 @@
       "minecraft:cardinal_direction": {},
       "minecraft:display_name": {
         "value": "\u00a77Wave Gate"
-      }
+      },
+      "minecraft:placement_direction": {}
     },
     "events": {
       "vista:wave_gate_placed": {},
