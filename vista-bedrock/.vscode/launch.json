@@ -1,0 +1,13 @@
+{
+  "version": "0.3.0",
+  "configurations": [
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Debug Vista Bedrock",
+      "mode": "connect",
+      "localRoot": "${workspaceFolder}/vista-bedrock/",
+      "port": 19144
+    }
+  ]
+}
