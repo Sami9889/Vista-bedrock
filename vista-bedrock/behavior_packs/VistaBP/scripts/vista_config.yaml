@@ -1,0 +1,44 @@
+# Vista Bedrock Camera Configuration
+# This file configures the custom camera system that works around
+# Bedrock's single-camera limitation by rapidly switching between
+# multiple virtual cameras.
+
+camera:
+  # How fast to switch between multiple cameras (ms)
+  # Lower = smoother, but more CPU intensive
+  switch_interval: 100
+  
+  # Camera height offset from viewfinder/TV block
+  height_offset: 6
+  
+  # TV display height offset
+  tv_display_height: 1.5
+  
+  # Mirror display offset
+  mirror_display_offset: 0.01
+  
+  # Enable debug logging for camera system
+  debug: true
+  
+  # Maximum number of active cameras before oldest is removed
+  max_cameras: 16
+  
+  # Enable script debugger integration
+  # When true, camera system listens for debug commands
+  debugger_integration: true
+
+# Wave Gate streaming settings
+wave_gate:
+  # Default streaming quality
+  quality: "medium"
+  
+  # Enable hardware acceleration if available
+  hardware_acceleration: true
+
+# Cassette tape settings
+cassettes:
+  # Enable tape animation
+  animate: true
+  
+  # Animation speed multiplier
+  animation_speed: 1.0

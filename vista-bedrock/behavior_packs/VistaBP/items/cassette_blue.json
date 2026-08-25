@@ -10,7 +10,7 @@
     },
     "components": {
       "minecraft:icon": {
-        "texture": "cassette_blue"
+        "texture": "cassette"
       },
       "minecraft:model": {
         "model": "vista:geometry.cassette_blue"
@@ -22,6 +22,11 @@
       "minecraft:max_stack_size": 1,
       "minecraft:animation_controllers": [
         "controller.animation.vista.cassette_blue"
+      ],
+      "minecraft:tint": [
+        0,
+        0,
+        170
       ]
     }
   }

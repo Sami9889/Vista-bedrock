@@ -10,7 +10,7 @@
     },
     "components": {
       "minecraft:icon": {
-        "texture": "viewfinder_item"
+        "texture": "viewfinder"
       },
       "minecraft:model": {
         "model": "vista:geometry.viewfinder_item"

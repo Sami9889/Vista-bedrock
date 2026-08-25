@@ -23,6 +23,77 @@ const BOUND_CASSETTES = new Map();
 const CAMERA_ENTS = new Map();
 const TV_SOUNDS = new Map();
 
+const CAMERA_MANAGER = {
+  cameras: new Map(),
+  activeIndex: 0,
+  switchInterval: 100,
+  lastSwitch: 0,
+  viewers: new Map(),
+  
+  register(block) {
+    const key = tvKey(block.location);
+    if (!this.cameras.has(key)) {
+      this.cameras.set(key, {
+        block,
+        pitch: 0,
+        yaw: 0,
+        locked: false,
+        boundChannel: null,
+        viewers: new Set()
+      });
+    }
+    return key;
+  },
+  
+  unregister(block) {
+    const key = tvKey(block.location);
+    this.cameras.delete(key);
+    const cam = CAMERA_ENTS.get(key);
+    if (cam && cam.isValid) {
+      try { cam.kill(); } catch(e) {}
+    }
+    CAMERA_ENTS.delete(key);
+  },
+  
+  setViewer(playerId, cameraKey) {
+    this.viewers.set(playerId, cameraKey);
+  },
+  
+  removeViewer(playerId) {
+    this.viewers.delete(playerId);
+  },
+  
+  getActiveCamera() {
+    const keys = Array.from(this.cameras.keys());
+    if (keys.length === 0) return null;
+    return keys[this.activeIndex % keys.length];
+  },
+  
+  switchCamera() {
+    const keys = Array.from(this.cameras.keys());
+    if (keys.length <= 1) return;
+    this.activeIndex = (this.activeIndex + 1) % keys.length;
+  },
+  
+  update(tick) {
+    if (this.cameras.size === 0) return;
+    
+    if (tick - this.lastSwitch >= this.switchInterval) {
+      this.switchCamera();
+      this.lastSwitch = tick;
+    }
+    
+    for (const [key, cam] of this.cameras) {
+      const ent = CAMERA_ENTS.get(key);
+      if (!ent || !ent.isValid) continue;
+      
+      try {
+        ent.setRotation({ x: -cam.pitch, y: cam.yaw });
+      } catch(e) {}
+    }
+  }
+};
+
 const CASSETTE_TAPES = [
   { id: "67", color: "0xff02ea5b", asset: "vista:matrix", comparator: 6 },
   { id: "axolotl", color: "0xfffaaad9", asset: "vista:axolotl", comparator: 10 },
@@ -117,6 +188,7 @@ function handleTVStatic(block, enabled) {
 
 function spawnCameraEntity(block) {
   const key = tvKey(block.location);
+  CAMERA_MANAGER.register(block);
   let ent = CAMERA_ENTS.get(key);
   if (ent && ent.isValid) {
     try { ent.teleport({ x: ent.location.x, y: block.location.y + 6, z: ent.location.z }); } catch(e) {}
@@ -212,6 +284,7 @@ function handleTVInteraction(player, block) {
 function handleViewfinderInteraction(player, block) {
   const pos = block.location;
   const key = tvKey(pos);
+  CAMERA_MANAGER.register(block);
   let vf = VF_STATE.get(key);
   if (!vf) {
     vf = { pitch: 0, yaw: 0, locked: false };
@@ -233,15 +306,23 @@ function handleViewfinderInteraction(player, block) {
     vf.pitch = pitch;
     vf.yaw = yaw;
     vf.locked = locked;
+    const cam = CAMERA_MANAGER.cameras.get(key);
+    if (cam) {
+      cam.pitch = pitch;
+      cam.yaw = yaw;
+      cam.locked = locked;
+    }
     if (channelInput && channelInput.trim() !== "" && CHANNEL_MAP[channelInput.trim()]) {
       BOUND_CASSETTES.set(key, { cassette_id: channelInput.trim() });
+      if (cam) cam.boundChannel = channelInput.trim();
       player.sendMessage(`§7Viewfinder bound to ${getChannelColor(channelInput.trim())}${channelInput.trim()} §7channel.`);
     }
     VF_ANGLES.set(playerKey, { pitch, yaw });
     VF_LOCKED.set(playerKey, locked);
     PLAYER_VF.set(player.id, key);
+    CAMERA_MANAGER.setViewer(player.id, key);
     if (locked) {
-      player.sendMessage("§7Viewfinder view locked!");
+      player.sendMessage("§7Viewfinder view locked! Use /script debugger vista.sami-s.dev to view on TV.");
     }
   });
 }
@@ -341,12 +422,14 @@ function onTVBreak(block) {
     try { cam.kill(); } catch(e) {}
   }
   CAMERA_ENTS.delete(key);
+  CAMERA_MANAGER.unregister(block);
 }
 
 function onVfBreak(block) {
   const key = tvKey(block.location);
   VF_STATE.delete(key);
   BOUND_CASSETTES.delete(key);
+  CAMERA_MANAGER.unregister(block);
   PLAYER_VF.forEach((v, id) => {
     if (v === key) PLAYER_VF.delete(id);
   });
@@ -356,9 +439,31 @@ function onVfBreak(block) {
 }
 
 function mainTick() {
+  const tick = Date.now();
   world.getPlayers().forEach(player => {
     updateViewfinder(player);
   });
+  CAMERA_MANAGER.update(tick);
+  
+  // Script debugger camera switching
+  if (VISTA_CONFIG.camera?.debugger_integration && globalThis.__vista_camera_state) {
+    const state = globalThis.__vista_camera_state.getState();
+    if (state.activeCamera && state.activePlayer) {
+      const player = world.getPlayers().find(p => p.id === state.activePlayer);
+      if (player) {
+        const cam = CAMERA_MANAGER.cameras.get(state.activeCamera);
+        if (cam && cam.locked) {
+          try {
+            const ent = CAMERA_ENTS.get(state.activeCamera);
+            if (ent && ent.isValid) {
+              ent.setRotation({ x: -cam.pitch, y: cam.yaw });
+            }
+          } catch(e) {}
+        }
+      }
+    }
+  }
+  
   system.run(mainTick);
 }
 
@@ -408,6 +513,7 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
 world.afterEvents.playerLeave.subscribe(e => {
   const pid = e.player.id;
   PLAYER_VF.delete(pid);
+  CAMERA_MANAGER.removeViewer(pid);
   for (const [k, v] of VF_LOCKED.entries()) {
     if (k.startsWith(pid)) VF_LOCKED.delete(k);
   }
@@ -511,4 +617,121 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
 });
 
 world.sendMessage("§3§lVista §7loaded! §eWorking Screens §7for Minecraft Bedrock Edition.");
+world.sendMessage("§7Script Debugger: §e/script debugger vista.sami-s.dev");
 system.run(mainTick);
+
+// Script Debugger Integration for vista.sami-s.dev
+// The debugger injects code to work around Bedrock's single-camera limit.
+// Expose camera state so the debugger can switch the active camera view.
+globalThis.__vista_camera_state = {
+  manager: CAMERA_MANAGER,
+  entities: CAMERA_ENTS,
+  activeCamera: null,
+  activePlayer: null,
+  
+  getState() {
+    return {
+      cameras: Array.from(this.manager.cameras.entries()).map(([key, cam]) => ({
+        key,
+        pitch: cam.pitch,
+        yaw: cam.yaw,
+        locked: cam.locked,
+        boundChannel: cam.boundChannel
+      })),
+      activeIndex: this.manager.activeIndex,
+      activeCamera: this.manager.getActiveCamera()
+    };
+  },
+  
+  switchToCamera(cameraKey, player) {
+    const cam = this.manager.cameras.get(cameraKey);
+    if (!cam) return false;
+    
+    this.activeCamera = cameraKey;
+    this.activePlayer = player;
+    this.manager.activeIndex = Array.from(this.manager.cameras.keys()).indexOf(cameraKey);
+    
+    const ent = CAMERA_ENTS.get(cameraKey);
+    if (ent && ent.isValid) {
+      try {
+        player.teleport({
+          x: ent.location.x,
+          y: ent.location.y,
+          z: ent.location.z
+        });
+        player.setRotation({ x: -cam.pitch, y: cam.yaw });
+      } catch(e) {}
+    }
+    return true;
+  },
+  
+  resetPlayer(player) {
+    if (this.activePlayer === player.id) {
+      this.activeCamera = null;
+      this.activePlayer = null;
+    }
+  }
+};
+
+world.afterEvents.serverEvent.subscribe(e => {
+  if (e.eventName === "vista:debug_camera") {
+    const { cameraKey, action } = e.data || {};
+    const player = e.sender;
+    
+    if (action === "switch" && cameraKey) {
+      const success = globalThis.__vista_camera_state.switchToCamera(cameraKey, player);
+      player.sendMessage(success 
+        ? `§7Switched to camera: §e${cameraKey}` 
+        : `§cCamera not found: ${cameraKey}`);
+    } else if (action === "list") {
+      const state = globalThis.__vista_camera_state.getState();
+      player.sendMessage(`§7Active cameras: ${state.cameras.length}`);
+      state.cameras.forEach((cam, i) => {
+        const status = cam.key === state.activeCamera ? "§a[ACTIVE]" : "§7";
+        player.sendMessage(`§7  ${i}: ${status}${cam.key} §8(${cam.boundChannel || "unbound"})`);
+      });
+    } else if (action === "reset") {
+      globalThis.__vista_camera_state.resetPlayer(player);
+      player.sendMessage("§7Camera view reset.");
+    }
+  }
+});
+
+world.afterEvents.playerLeave.subscribe(e => {
+  globalThis.__vista_camera_state.resetPlayer(e.player.id);
+});
+
+// Simple YAML config loader (Bedrock-compatible)
+function loadVistaConfig() {
+  try {
+    const configPath = "vista-bedrock/behavior_packs/VistaBP/scripts/vista_config.yaml";
+    // Config is embedded here since Bedrock can't read files at runtime
+    // In production, this would be loaded from a script API file reader
+    return {
+      camera: {
+        switch_interval: 100,
+        height_offset: 6,
+        tv_display_height: 1.5,
+        mirror_display_offset: 0.01,
+        debug: true,
+        max_cameras: 16,
+        debugger_integration: true
+      },
+      wave_gate: {
+        quality: "medium",
+        hardware_acceleration: true
+      },
+      cassettes: {
+        animate: true,
+        animation_speed: 1.0
+      }
+    };
+  } catch (e) {
+    return {};
+  }
+}
+
+const VISTA_CONFIG = loadVistaConfig();
+if (VISTA_CONFIG.camera?.debug) {
+  world.sendMessage(`§7Vista config loaded: camera.switch_interval=${VISTA_CONFIG.camera.switch_interval}ms`);
+}

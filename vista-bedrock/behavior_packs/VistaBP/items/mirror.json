@@ -10,7 +10,7 @@
     },
     "components": {
       "minecraft:icon": {
-        "texture": "mirror_item"
+        "texture": "mirror"
       },
       "minecraft:model": {
         "model": "vista:geometry.mirror_item"

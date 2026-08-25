@@ -10,7 +10,7 @@
     },
     "components": {
       "minecraft:icon": {
-        "texture": "wave_gate_item"
+        "texture": "wave_gate"
       },
       "minecraft:model": {
         "model": "vista:geometry.wave_gate_item"

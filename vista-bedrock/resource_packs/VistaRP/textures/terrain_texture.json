@@ -6,7 +6,6 @@
     "tv_back": { "textures": "textures/blocks/tv/back/default" },
     "tv_side": { "textures": "textures/blocks/tv/side/default" },
     "tv_top": { "textures": "textures/blocks/tv/top/default" },
-    "tv_base": { "textures": "textures/blocks/tv_base" },
     "viewfinder": { "textures": "textures/blocks/viewfinder" },
     "mirror": { "textures": "textures/blocks/mirror/side" },
     "mirror_front": { "textures": "textures/blocks/mirror/front/default" },
