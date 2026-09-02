@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Vista Behavior Pack",
-    "description": "Working screens, TVs, cassettes, mirrors and more - Bedrock Edition port of Vista",
+    "description": "Working screens, TVs, cassettes, mirrors and more - Bedrock Edition port of Vista. Uses /camera command for viewfinder and TV effects."
     "uuid": "1a2b3c4d-1111-2222-3333-444455556666",
     "version": [1, 0, 0],
     "min_engine_version": [1, 21, 0]
