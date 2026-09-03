@@ -22,6 +22,19 @@ const VF_LOCKED = new Map();
 const BOUND_CASSETTES = new Map();
 const CAMERA_ENTS = new Map();
 const TV_SOUNDS = new Map();
+const LAST_CAMERA_ANGLES = new Map();
+
+function getLastCameraState(playerId) {
+  return LAST_CAMERA_ANGLES.get(playerId) || null;
+}
+
+function setLastCameraState(playerId, key, pitch, yaw) {
+  LAST_CAMERA_ANGLES.set(playerId, { key, pitch, yaw });
+}
+
+function clearLastCameraState(playerId) {
+  LAST_CAMERA_ANGLES.delete(playerId);
+}
 
 const CAMERA_MANAGER = {
   cameras: new Map(),
@@ -223,6 +236,74 @@ function isGettingPower(block) {
   return false;
 }
 
+// === Camera Command Integration ===
+// Uses Bedrock's /camera command (stable since 1.20.30)
+// Provides in-game camera control for viewfinders and TV transitions.
+
+const CAMERA_PRESETS = {
+  FREE: "minecraft:free",
+  FIRST_PERSON: "minecraft:first_person",
+  THIRD_PERSON: "minecraft:third_person"
+};
+
+const CAMERA_AVAILABILITY = new Map();
+
+function isCameraAvailable(player) {
+  if (CAMERA_AVAILABILITY.has(player.id)) {
+    return CAMERA_AVAILABILITY.get(player.id);
+  }
+  try {
+    const result = player.runCommand("/camera @s clear");
+    const available = result.statusCode === 0 || result.status === 0;
+    CAMERA_AVAILABILITY.set(player.id, available);
+    return available;
+  } catch (e) {
+    CAMERA_AVAILABILITY.set(player.id, false);
+    return false;
+  }
+}
+
+function setPlayerCamera(player, x, y, z, pitch, yaw, easeTime, easeType) {
+  if (!isCameraAvailable(player)) return false;
+  try {
+    const pitchClamped = Math.round(Math.max(-90, Math.min(90, pitch)));
+    let cmd;
+    if (easeTime && easeType) {
+      cmd = `/camera @s set ${CAMERA_PRESETS.FREE} ease ${easeTime} ${easeType} pos ${x} ${y} ${z} rot ${pitchClamped} ${yaw}`;
+    } else {
+      cmd = `/camera @s set ${CAMERA_PRESETS.FREE} pos ${x} ${y} ${z} rot ${pitchClamped} ${yaw}`;
+    }
+    const result = player.runCommand(cmd);
+    return result.statusCode === 0 || result.status === 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+function clearPlayerCamera(player) {
+  if (!isCameraAvailable(player)) return false;
+  try {
+    const result = player.runCommand("/camera @s clear");
+    return result.statusCode === 0 || result.status === 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+function fadePlayerCamera(player, fadeIn = 1, hold = 0.5, fadeOut = 1, r, g, b) {
+  if (!isCameraAvailable(player)) return false;
+  try {
+    let cmd = `/camera @s fade time ${fadeIn} ${hold} ${fadeOut}`;
+    if (r !== undefined && g !== undefined && b !== undefined) {
+      cmd += ` color ${r} ${g} ${b}`;
+    }
+    const result = player.runCommand(cmd);
+    return result.statusCode === 0 || result.status === 0;
+  } catch (e) {
+    return false;
+  }
+}
+
 function handleTVInteraction(player, block) {
   const inv = player.getComponent("inventory");
   const held = inv.getItem(player.selectedSlotIndex);
@@ -251,6 +332,7 @@ function handleTVInteraction(player, block) {
       spawnCameraEntity(block);
       player.sendMessage("§7Hollow cassette bound! Showing live viewfinder feed.");
       player.runCommand("playsound block.television.insert @s ~~~ 1.0 1.0");
+      fadePlayerCamera(player, 0.2, 0.05, 0.2, 0, 0, 0);
     } else {
       const tapeIndex = Math.floor(Math.random() * CASSETTE_TAPES.length);
       const tape = CASSETTE_TAPES[tapeIndex];
@@ -264,6 +346,7 @@ function handleTVInteraction(player, block) {
       player.sendMessage(`§7Now playing: ${getChannelColor(ch)}${tapeName} §7(${tape.asset})`);
       player.runCommand("playsound block.television.insert @s ~~~ 1.0 1.0");
       handleTVStatic(block, true);
+      fadePlayerCamera(player, 0.2, 0.05, 0.2, 0, 0, 0);
     }
     player.runCommand(`clear @s ${itemId} 1`);
   } else if (itemId === "vista:picture_tape") {
@@ -276,6 +359,7 @@ function handleTVInteraction(player, block) {
     player.sendMessage("§6Picture Tape inserted! Right-click it to add map images.");
     player.runCommand("playsound block.television.insert @s ~~~ 1.0 1.0");
     player.runCommand(`clear @s vista:picture_tape 1`);
+    fadePlayerCamera(player, 0.2, 0.05, 0.2, 0, 0, 0);
   } else {
     player.sendMessage("§7Insert a cassette, picture tape or hollow cassette.");
   }
@@ -322,7 +406,15 @@ function handleViewfinderInteraction(player, block) {
     PLAYER_VF.set(player.id, key);
     CAMERA_MANAGER.setViewer(player.id, key);
     if (locked) {
-      player.sendMessage("§7Viewfinder view locked! Use /script debugger vista.sami-s.dev to view on TV.");
+      const [bx, by, bz] = key.split(",").map(Number);
+      const camPos = { x: bx, y: by + 6, z: bz };
+      setPlayerCamera(player, camPos.x, camPos.y, camPos.z, pitch, yaw, 0.5, "in_out_cubic");
+      setLastCameraState(player.id, key, pitch, yaw);
+      player.sendMessage("§7Viewfinder view locked! §eYou can now view through the viewfinder.");
+      player.sendMessage("§7For external streaming, use §e/script debugger vista.sami-s.dev");
+    } else {
+      clearPlayerCamera(player);
+      clearLastCameraState(player.id);
     }
   });
 }
@@ -331,15 +423,33 @@ function updateViewfinder(player) {
   const key = PLAYER_VF.get(player.id);
   if (!key) return;
   const vf = VF_STATE.get(key);
-  if (!vf || !vf.locked) return;
+  if (!vf) return;
   const playerKey = `${player.id},${key}`;
   const angles = VF_ANGLES.get(playerKey);
-  if (!angles) return;
+  const isLocked = VF_LOCKED.get(playerKey);
+  
+  // Update armor stand rotation (for rendering and debugger compatibility)
   const ent = CAMERA_ENTS.get(key);
-  if (!ent || !ent.isValid) return;
-  try {
-    ent.setRotation({ x: -angles.pitch, y: angles.yaw });
-  } catch(e) {}
+  if (ent && ent.isValid) {
+    try {
+      const rot = angles ? { x: -angles.pitch, y: angles.yaw } : { x: -vf.pitch, y: vf.yaw };
+      ent.setRotation(rot);
+    } catch(e) {}
+  }
+  
+  // Update player camera via /camera if this player has locked view
+  if (isLocked && angles) {
+    const [bx, by, bz] = key.split(",").map(Number);
+    const camPos = { x: bx, y: by + 6, z: bz };
+    const lastState = getLastCameraState(player.id);
+    if (!lastState || lastState.key !== key || lastState.pitch !== angles.pitch || lastState.yaw !== angles.yaw) {
+      setPlayerCamera(player, camPos.x, camPos.y, camPos.z, angles.pitch, angles.yaw);
+      setLastCameraState(player.id, key, angles.pitch, angles.yaw);
+    }
+  } else if (!isLocked) {
+    clearPlayerCamera(player);
+    clearLastCameraState(player.id);
+  }
 }
 
 function handleMirrorPlaced(player, block) {
@@ -423,6 +533,12 @@ function onTVBreak(block) {
   }
   CAMERA_ENTS.delete(key);
   CAMERA_MANAGER.unregister(block);
+  const players = world.getPlayers();
+  for (const p of players) {
+    if (p.location.distance(block.location) < 12) {
+      fadePlayerCamera(p, 0.15, 0.05, 0.15, 0, 0, 0);
+    }
+  }
 }
 
 function onVfBreak(block) {
@@ -430,6 +546,13 @@ function onVfBreak(block) {
   VF_STATE.delete(key);
   BOUND_CASSETTES.delete(key);
   CAMERA_MANAGER.unregister(block);
+  const players = world.getPlayers();
+  for (const p of players) {
+    if (PLAYER_VF.get(p.id) === key) {
+      clearPlayerCamera(p);
+      clearLastCameraState(p.id);
+    }
+  }
   PLAYER_VF.forEach((v, id) => {
     if (v === key) PLAYER_VF.delete(id);
   });
@@ -512,8 +635,11 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
 
 world.afterEvents.playerLeave.subscribe(e => {
   const pid = e.player.id;
+  CAMERA_AVAILABILITY.delete(pid);
+  clearLastCameraState(pid);
   PLAYER_VF.delete(pid);
   CAMERA_MANAGER.removeViewer(pid);
+  clearPlayerCamera(e.player);
   for (const [k, v] of VF_LOCKED.entries()) {
     if (k.startsWith(pid)) VF_LOCKED.delete(k);
   }
@@ -677,6 +803,8 @@ globalThis.__vista_camera_state = {
 // Bedrock doesn't have world.afterEvents.serverEvent
 
 world.afterEvents.playerLeave.subscribe(e => {
+  CAMERA_AVAILABILITY.delete(e.player.id);
+  clearLastCameraState(e.player.id);
   globalThis.__vista_camera_state.resetPlayer(e.player.id);
 });
 
